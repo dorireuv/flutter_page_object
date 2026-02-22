@@ -10,10 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: flutter_page_object
-
     steps:
       - uses: actions/checkout@v4
 
