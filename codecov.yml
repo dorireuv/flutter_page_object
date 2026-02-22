@@ -1,0 +1,9 @@
+ignore:
+  - "flutter_page_object/example/**/*"
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
