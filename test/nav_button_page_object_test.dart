@@ -6,27 +6,22 @@ import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
-  const aTargetKey = Key('target');
-
-  NavButtonPageObject<WidgetPageObject> createPageObject(
-          WidgetTester t, Key targetKey) =>
-      PageObjectFactory.root(t).navButton(
-          aFinder, PageObjectFactory.root(t).byKey.widget(targetKey));
+  NavButtonPageObject<_TargetPageObject> createPageObject(WidgetTester t) =>
+      PageObjectFactory.root(t).createStatic(_TestPageObject.new).button;
 
   group('tapNavAndSettle', () {
     testWidgets('navigates to target and returns it', (t) async {
-      await t.pumpWidget(const _Widget(targetKey: aTargetKey));
+      await t.pumpWidget(const _Widget());
 
-      final pageObject = createPageObject(t, aTargetKey);
+      final pageObject = createPageObject(t);
       final res = await pageObject.tapNavAndSettle(expectTarget: false);
 
       expect(res, findsOne);
     });
 
     testWidgets('expectTarget is true, throws if target not found', (t) async {
-      await t.pumpWidget(
-          const _Widget(targetKey: aTargetKey, shouldNavigate: false));
-      final pageObject = createPageObject(t, aTargetKey);
+      await t.pumpWidget(const _Widget(shouldNavigate: false));
+      final pageObject = createPageObject(t);
       await expectLater(() => pageObject.tapNavAndSettle(expectTarget: true),
           _throwsTestFailure);
     });
@@ -34,9 +29,9 @@ void main() {
 
   group('tapNavAndPump', () {
     testWidgets('tapNavAndPump navigates with a single pump', (t) async {
-      await t.pumpWidget(const _Widget(targetKey: aTargetKey));
+      await t.pumpWidget(const _Widget());
 
-      final pageObject = createPageObject(t, aTargetKey);
+      final pageObject = createPageObject(t);
       final res = await pageObject.tapNavAndPump(expectTarget: false);
 
       expect(res, findsNothing); // Animation is not finished yet
@@ -45,9 +40,8 @@ void main() {
     });
 
     testWidgets('expectTarget is true, throws if target not found', (t) async {
-      await t.pumpWidget(
-          const _Widget(targetKey: aTargetKey, shouldNavigate: false));
-      final pageObject = createPageObject(t, aTargetKey);
+      await t.pumpWidget(const _Widget(shouldNavigate: false));
+      final pageObject = createPageObject(t);
       await expectLater(() => pageObject.tapNavAndPump(expectTarget: true),
           _throwsTestFailure);
     });
@@ -55,9 +49,9 @@ void main() {
 
   group('tapNav', () {
     testWidgets('tapNav navigates', (t) async {
-      await t.pumpWidget(const _Widget(targetKey: aTargetKey));
+      await t.pumpWidget(const _Widget());
 
-      final pageObject = createPageObject(t, aTargetKey);
+      final pageObject = createPageObject(t);
       final res = await pageObject.tapNav(expectTarget: false);
 
       expect(res, findsNothing); // Animation is not finished yet
@@ -69,22 +63,27 @@ void main() {
   });
 
   testWidgets('expectTarget is true, throws if target not found', (t) async {
-    await t.pumpWidget(
-        const _Widget(targetKey: aTargetKey, shouldNavigate: false));
-    final pageObject = createPageObject(t, aTargetKey);
+    await t.pumpWidget(const _Widget(shouldNavigate: false));
+    final pageObject = createPageObject(t);
     await expectLater(
         () => pageObject.tapNav(expectTarget: true), _throwsTestFailure);
   });
 }
 
+class _TestPageObject extends PageObject {
+  late final button = d.navButton(this, r.createStatic(_TargetPageObject.new));
+
+  _TestPageObject(WidgetTester t) : super(t, aFinder);
+}
+
+class _TargetPageObject extends PageObject {
+  _TargetPageObject(WidgetTester t) : super(t, _targetFinder);
+}
+
 class _Widget extends StatelessWidget {
-  final Key targetKey;
   final bool shouldNavigate;
 
-  const _Widget({
-    required this.targetKey,
-    this.shouldNavigate = true,
-  });
+  const _Widget({this.shouldNavigate = true});
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +93,8 @@ class _Widget extends StatelessWidget {
           key: aKey,
           onPressed: () {
             if (shouldNavigate) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => Scaffold(key: targetKey)));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const Scaffold(key: _targetKey)));
             }
           },
           child: const Text('Navigate'),
@@ -104,5 +103,8 @@ class _Widget extends StatelessWidget {
     );
   }
 }
+
+const _targetKey = Key('target');
+final _targetFinder = find.byKey(_targetKey);
 
 final _throwsTestFailure = throwsA(isA<TestFailure>());
