@@ -1,0 +1,23 @@
+name: flutter_page_object
+description: "Helps to implement the Page Object pattern in a Flutter app."
+version: 0.0.1
+homepage: https://github.com/dorireuv/flutter_page_object/
+repository: https://github.com/dorireuv/flutter_page_object/tree/master/packages/flutter_page_object
+issue_tracker: https://github.com/dorireuv/flutter_page_object/issues
+topics:
+  - page-object
+  - testing
+  - test-automation
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
