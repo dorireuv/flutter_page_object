@@ -1,13 +1,13 @@
 # flutter_page_object
 flutter_page_object is a Flutter library allowing to write page objects for
-your application using the (PageObject)[https://martinfowler.com/bliki/PageObject.html] pattern.
+your application using the [PageObject](https://martinfowler.com/bliki/PageObject.html) pattern.
 Using it make your tests easier to write, read and maintain.
 
 ## Usage
 
 See `example` for a complete example.
 
-Your tests will look like (this)[example/test/login_page_test.dart]:
+Your tests will look like [this](example/test/login_page_test.dart):
 
 ```dart
 testWidgets('tap login button and form completed --> logins', (t) async {
@@ -22,7 +22,7 @@ testWidgets('tap login button and form completed --> logins', (t) async {
 });
 ```
 
-While the page object will look like (this)[example/test_common/lib/home_page_object.dart]:
+While the page object will look like [this](example/test_common/lib/login_page_object.dart):
 
 ```dart
 class LoginPageObject extends PageObject {
@@ -43,4 +43,4 @@ class LoginPageObject extends PageObject {
 ```
 
 ## Creating your own page object
-You can create your own page object by simply extending the [PageObject] base class.
+You can create your own page object by simply extending the [PageObject](lib/src/page_object.dart) base class.
