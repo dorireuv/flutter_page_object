@@ -1,4 +1,4 @@
-name: Dart CI
+name: Flutter CI
 
 on:
   push:
@@ -10,33 +10,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: flutter_page_object
+
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
         with:
-          sdk: stable
+          channel: "stable"
+          cache: true
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
-      # 1. Run tests and generate coverage JSON files
-      - name: Run tests
-        run: dart test --coverage="coverage"
+      - name: Run tests with coverage
+        run: flutter test --coverage
 
-      # 2. Convert JSON coverage to LCOV format
-      - name: Install coverage tool
-        run: dart pub global activate coverage
-
-      - name: Format coverage
-        run: |
-          dart pub global run coverage:format_coverage \
-            --lcov \
-            --in=coverage \
-            --out=coverage/lcov.info \
-            --report-on=lib
-
-      # 3. Upload to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
