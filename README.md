@@ -1,11 +1,12 @@
-# flutter_page_object
+# flutter_page_object [![codecov](https://codecov.io/github/dorireuv/flutter_page_object/graph/badge.svg?token=V0PNS1FO5W)](https://codecov.io/github/dorireuv/flutter_page_object)
+
 flutter_page_object is a Flutter library allowing to write page objects for
 your application using the [PageObject](https://martinfowler.com/bliki/PageObject.html) pattern.
 Using it make your tests easier to write, read and maintain.
 
 ## Usage
 
-See `example` for a complete example.
+See [example](example) for a complete example.
 
 Your tests will look like [this](example/test/login_page_test.dart):
 
