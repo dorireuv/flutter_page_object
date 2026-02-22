@@ -1,6 +1,7 @@
-## 0.0.1
+## 0.0.3
 
-* Initial release.
+* Fixed link to repository.
+* Minor tests improvements.
 
 ## 0.0.2
 
@@ -8,3 +9,7 @@
 * Configured Codecov for test coverage tracking.
 * Excluded example folder from coverage reports.
 * Documentation updates.
+
+## 0.0.1
+
+* Initial release.
