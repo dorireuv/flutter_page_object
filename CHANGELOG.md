@@ -1,3 +1,8 @@
+## 0.0.5
+
+* Rename HasScrollable mixin to IsScrollable.
+* Add IsSlidable mixin.
+
 ## 0.0.4
 
 * ScrollablePageObject: scroll the first Scrollable in the case of nested Scrollables.
