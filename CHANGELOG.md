@@ -1,3 +1,7 @@
+## 0.0.4
+
+* ScrollablePageObject: scroll the first Scrollable in the case of nested Scrollables.
+
 ## 0.0.3
 
 * Fixed link to repository.
