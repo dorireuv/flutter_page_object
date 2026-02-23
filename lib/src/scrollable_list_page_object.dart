@@ -10,7 +10,7 @@ import 'widget_list_page_object.dart';
 /// It combines the functionalities of [ScrollablePageObject] and
 /// [WidgetListPageObject].
 class ScrollableListPageObject<T extends PageObject> extends PageObject
-    with HasScrollable {
+    with IsScrollable {
   /// Creates a [ScrollableListPageObject] with the given [finder] for the overall
   /// scrollable list, and a [builder] for the individual list items.
   static PageObjectBuilder<ScrollableListPageObject<T>>

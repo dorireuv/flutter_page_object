@@ -9,7 +9,7 @@ const _defaultMaxScrolls = 50;
 
 /// A page object representing a scrollable widget, such as a [ListView] or
 /// a [SingleChildScrollView].
-class ScrollablePageObject extends PageObject with HasScrollable {
+class ScrollablePageObject extends PageObject with IsScrollable {
   /// Creates a [ScrollablePageObject] with the given [finder].
   ScrollablePageObject(super.t, super.finder);
 }
@@ -21,8 +21,8 @@ extension ScrollablePageObjectFactoryExtension<K> on PageObjectFactory<K> {
       create(ScrollablePageObject.new, key);
 }
 
-/// A mixin for page objects that have a scrollable widget.
-mixin HasScrollable on PageObject {
+/// A mixin for page objects that are scrollable widget.
+mixin IsScrollable on PageObject {
   /// Scrolls up until the given [itemFinder] is visible, or until the maximum
   /// number of scrolls is reached.
   Future<void> scrollUpUntilVisible(
