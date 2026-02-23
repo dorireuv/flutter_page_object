@@ -77,7 +77,7 @@ class DropdownPageObject<T> extends PageObject {
     expect(isOpen, isFalse);
   }
 
-  Future<void> _selectItem(v) async {
+  Future<void> _selectItem(T? v) async {
     await t.tap(_popupMenuItemWithValue(v), warnIfMissed: false);
     await t.pump();
     await t.pump();
@@ -87,7 +87,7 @@ class DropdownPageObject<T> extends PageObject {
 
   Iterable<DropdownMenuItem<T>> _items() => t.widgetList(_popupMenuItemsFinder);
 
-  Finder _popupMenuItemWithValue(T v) => find.descendant(
+  Finder _popupMenuItemWithValue(T? v) => find.descendant(
       of: _popupMenuFinder,
       matching: find
           .byWidgetPredicate((w) => w is DropdownMenuItem<T> && w.value == v));
