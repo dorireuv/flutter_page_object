@@ -9,9 +9,18 @@ void main() {
   ScrollablePageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).scrollable(aFinder);
 
+  testWidgets('nested scrollables --> scrolls the first', (t) async {
+    await t.pumpWidget(const _NestedScrollables(itemCount: 20));
+    final pageObject = createPageObject(t);
+
+    await pageObject.scrollDownUntilVisible(_itemFinder(10));
+
+    expect(_itemFinder(10), findsOne);
+  });
+
   testWidgets('scrollDownUntilVisible --> scrolls', (t) async {
-    await t._runWithViewHeight(_kDefaultItemHeight * 6, () async {
-      await t.pumpWidget(const _Widget(itemCount: 20, itemKey: _itemKey));
+    await t.runWithViewHeight(_kDefaultItemHeight * 6, () async {
+      await t.pumpWidget(const _Widget(itemCount: 20));
       final pageObject = createPageObject(t);
       expect(_itemFinder(0), findsOne);
       expect(_itemFinder(5), findsOne);
@@ -24,8 +33,8 @@ void main() {
   });
 
   testWidgets('scrollUpUntilVisible --> scrolls', (t) async {
-    await t._runWithViewHeight(_kDefaultItemHeight * 6, () async {
-      await t.pumpWidget(const _Widget(itemCount: 20, itemKey: _itemKey));
+    await t.runWithViewHeight(_kDefaultItemHeight * 6, () async {
+      await t.pumpWidget(const _Widget(itemCount: 20));
       final pageObject = createPageObject(t);
       await pageObject.scrollDownUntilVisible(_itemFinder(10));
       expect(_itemFinder(0), findsNothing);
@@ -39,7 +48,7 @@ void main() {
   });
 
   testWidgets('fling --> scrolls by a given delta', (t) async {
-    await t._runWithViewHeight(_kDefaultItemHeight * 6, () async {
+    await t.runWithViewHeight(_kDefaultItemHeight * 6, () async {
       await t.pumpWidget(const _Widget(itemCount: 20));
       final pageObject = createPageObject(t);
       expect(_itemFinder(0), findsOne);
@@ -54,7 +63,7 @@ void main() {
   });
 
   testWidgets('pullToRefresh --> triggers RefreshIndicator', (t) async {
-    await t._runWithViewHeight(_kDefaultItemHeight * 6, () async {
+    await t.runWithViewHeight(_kDefaultItemHeight * 6, () async {
       await t.pumpWidget(const _Widget(itemCount: 20));
       final pageObject = createPageObject(t);
       expect(_refreshProgressIndicatorFinder, findsNothing);
@@ -72,9 +81,8 @@ const _kDefaultItemHeight = 100.0;
 
 class _Widget extends StatelessWidget {
   final int itemCount;
-  final Key Function(int)? itemKey;
 
-  const _Widget({required this.itemCount, this.itemKey});
+  const _Widget({required this.itemCount});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +101,33 @@ class _Widget extends StatelessWidget {
   Widget _item(int i) {
     return SizedBox(
       height: _kDefaultItemHeight,
-      child: Text('$i', key: (itemKey ?? _itemKey)(i)),
+      child: Text('$i', key: _itemKey(i)),
+    );
+  }
+}
+
+class _NestedScrollables extends StatelessWidget {
+  final int itemCount;
+
+  const _NestedScrollables({required this.itemCount});
+
+  @override
+  Widget build(BuildContext context) {
+    return LocalizedWidgetWrapperForTesting(
+      child: ListView.builder(
+        key: aKey,
+        itemCount: itemCount,
+        itemBuilder: (_, i) => _item(i),
+      ),
+    );
+  }
+
+  Widget _item(int i) {
+    return SizedBox(
+      height: _kDefaultItemHeight,
+      child: SingleChildScrollView(
+        child: Text('$i', key: _itemKey(i)),
+      ),
     );
   }
 }
@@ -101,15 +135,3 @@ class _Widget extends StatelessWidget {
 Key _itemKey(int i) => Key('item_key_$i');
 Finder _itemFinder(int i) => find.byKey(_itemKey(i));
 final _refreshProgressIndicatorFinder = find.byType(RefreshProgressIndicator);
-
-extension _RunWithViewSize on WidgetTester {
-  Future<void> _runWithViewHeight(
-      double height, Future<void> Function() testBody) async {
-    view.physicalSize = Size(view.physicalSize.width, height);
-    view.devicePixelRatio = 1.0;
-
-    addTearDown(() => view.reset());
-
-    await testBody();
-  }
-}

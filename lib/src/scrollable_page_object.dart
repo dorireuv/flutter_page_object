@@ -69,6 +69,7 @@ mixin HasScrollable on PageObject {
     await fling(dy: 300.0);
   }
 
-  Finder get _scrollable => find.descendant(
-      of: this, matching: find.byType(Scrollable), matchRoot: true);
+  Finder get _scrollable => find
+      .descendant(of: this, matching: find.byType(Scrollable), matchRoot: true)
+      .first;
 }
