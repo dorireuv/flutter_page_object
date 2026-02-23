@@ -5,10 +5,13 @@ import 'page_object_factory.dart';
 
 /// A page object representing a slidable widget, such as [Dismissible] or
 /// [Slidable].
-class SlidablePageObject extends PageObject {
+class SlidablePageObject extends PageObject with IsSlidable {
   /// Creates a [SlidablePageObject] with the given [finder].
   SlidablePageObject(super.t, super.finder);
+}
 
+/// A mixin for page objects that are slidable.
+mixin IsSlidable on PageObject {
   /// Swipes the slidable to the start.
   /// In a PageView it will always move to the next page.
   Future<void> swipeToStart({double? dx, double? speed}) async {
