@@ -14,9 +14,11 @@ Your tests will look like [this](example/test/login_page_test.dart):
 testWidgets('form completed and tap login button --> navigates to home page', (t) async {
   await t.pumpWidget(const MaterialApp(home: LoginPage()));
   final loginPage = LoginPageObject(t);
+
   await loginPage.completeForm();
   expect(loginPage.loginButton.isEnabled, isTrue);
   final homePage = await loginPage.loginButton.tapNavAndSettle();
+
   expect(homePage, findsOne);
   expect(homePage.greetingText, findsOne);
 });

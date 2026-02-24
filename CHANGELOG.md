@@ -1,3 +1,7 @@
+## 0.0.5+2
+
+* Documentation updates.
+
 ## 0.0.5+1
 
 * Documentation updates.
