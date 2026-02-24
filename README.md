@@ -11,13 +11,12 @@ See [example](example) for a complete example.
 Your tests will look like [this](example/test/login_page_test.dart):
 
 ```dart
-testWidgets('tap login button and form completed --> logins', (t) async {
+testWidgets('form completed and tap login button --> navigates to home page', (t) async {
   await t.pumpWidget(const MaterialApp(home: LoginPage()));
   final loginPage = LoginPageObject(t);
-
   await loginPage.completeForm();
+  expect(loginPage.loginButton.isEnabled, isTrue);
   final homePage = await loginPage.loginButton.tapNavAndSettle();
-
   expect(homePage, findsOne);
   expect(homePage.greetingText, findsOne);
 });
@@ -34,10 +33,9 @@ class LoginPageObject extends PageObject {
 
   LoginPageObject(WidgetTester t) : super(t, _finder);
 
-  Future<void> completeForm(
-      {String username = 'username', String password = 'password'}) async {
-    await this.username.setText(username);
-    await this.password.setText(password);
+  Future<void> completeForm() async {
+    await username.setText('username');
+    await password.setText('password');
     await t.pump();
   }
 }
