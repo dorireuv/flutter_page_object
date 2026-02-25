@@ -1,11 +1,8 @@
 # flutter_page_object [![codecov](https://codecov.io/github/dorireuv/flutter_page_object/graph/badge.svg?token=V0PNS1FO5W)](https://codecov.io/github/dorireuv/flutter_page_object)
 
-flutter_page_object is a Flutter library allowing to write page objects for
-your application using the [PageObject](https://martinfowler.com/bliki/PageObject.html) pattern.
-Using it make your tests easier to write, read and maintain.
+Flutter library allowing to write page objects for your application using the [PageObject](https://martinfowler.com/bliki/PageObject.html) pattern. Using it make your tests easier to write, read and maintain.
 
 ## Usage
-
 See [example](example) for a complete example.
 
 Your tests will look like [this](example/test/login_page_test.dart):
@@ -45,3 +42,19 @@ class LoginPageObject extends PageObject {
 
 ## Creating your own page object
 You can create your own page object by simply extending the [PageObject](lib/src/page_object.dart) base class.
+
+## Supported page objects
+ - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton`.
+ - [CheckboxPageObject](lib/src/checkbox_page_object.dart) - For checkbox widgets such as `Checkbox` / `CheckboxListTile`.
+ - [DropdownPageObject](lib/src/dropdown_page_object.dart) - For dropdown widgets such as  `DropdownButton` / `DropdownButtonFormField`.
+ - [NavButtonPageObject](lib/src/nav_button_page_object.dart) - For button widgets which navigate to another route.
+ - [ScrollableListPageObject](lib/src/scrollable_list_page_object.dart) - For scrollable list widgets such as `ListView` / `GridView`.
+ - [ScrollablePageObject](lib/src/scrollable_page_object.dart) - For scrollable widgets such as `SingleChildScrollView` / `ListView`. The is also `IsScrollable` mixin if your page object is scrollable.
+ - [SlidablePageObject](lib/src/slidable_page_object.dart) - For slidable widgets such as `PageView` / `TabView`. There is `IsSlidable` mixin if your page object is slidable.
+ - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
+ - [TristateCheckboxPageObject](lib/src/tristate_checkbox_page_object.dart) - For checkbox widgets which are in tristate mode such as `Checkbox` / `CheckboxListTile`.
+ - [WidgetListPageObject](lib/src/widget_list_page_object.dart) - For list of widgets such as `Column` / `Row`.
+ - [WidgetPageObject](lib/src/widget_page_object.dart) - Generic page object for any widget.
+
+## Contribution
+Your contribution is more than welcom, feel free to contact me on any matter.
