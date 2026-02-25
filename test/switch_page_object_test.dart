@@ -39,7 +39,7 @@ abstract class _SwitchTest {
   _SwitchType get type;
 
   SwitchPageObject createPageObject(WidgetTester t) =>
-      PageObjectFactory.root(t).switchWidget(aFinder);
+      PageObjectFactory.root(t).switch_(aFinder);
 
   _Widget createWidget({bool value = false, bool isEnabled = false}) =>
       _Widget(type: type, value: value, isEnabled: isEnabled);

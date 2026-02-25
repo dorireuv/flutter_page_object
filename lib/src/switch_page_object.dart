@@ -43,5 +43,5 @@ class SwitchPageObject extends PageObject {
 /// Extension on [PageObjectFactory] to create [SwitchPageObject]s.
 extension SwitchPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [SwitchPageObject] with the given [key].
-  SwitchPageObject switchWidget(K key) => create(SwitchPageObject.new, key);
+  SwitchPageObject switch_(K key) => create(SwitchPageObject.new, key);
 }
