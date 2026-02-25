@@ -115,10 +115,10 @@ class DropdownPageObject<T> extends PageObject {
       matching: _popupMenuFinder,
     );
 
-    final RenderBox menuBox = t.renderObject(menuFinder) as RenderBox;
-    final Rect menuRect = menuBox.localToGlobal(Offset.zero) & menuBox.size;
+    final menuBox = t.renderObject(menuFinder) as RenderBox;
+    final menuRect = menuBox.localToGlobal(Offset.zero) & menuBox.size;
 
-    final Size screenSize = t.view.physicalSize / t.view.devicePixelRatio;
+    final screenSize = t.view.physicalSize / t.view.devicePixelRatio;
 
     // Try screen corners.
     final candidates = [

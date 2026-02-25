@@ -22,7 +22,7 @@ class TextPageObject extends PageObject {
   /// it is `null`.
   String get textSpanPlainTextOrEmpty => textSpanPlainText ?? '';
 
-  Text get _widget => widget();
+  Text get _widget => widget<Text>();
 }
 
 /// Extension on [PageObjectFactory] to create [TextPageObject]s.
