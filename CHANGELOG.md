@@ -1,8 +1,15 @@
+## 0.0.7
+
+* `PageObject` - added `waitUntilShown`.
+* `ButtonPageObject` - support `IconButton` and `MaterialButton`.
+* Simplify tests.
+* Documentation updates.
+
 ## 0.0.6
 
-* Added RadioPageObject.
-* Added RadioGroupPageObject.
-* Added SwitchPageObject.
+* Added `RadioPageObject`.
+* Added `RadioGroupPageObject`.
+* Added `SwitchPageObject`.
 * Documentation updates.
 
 ## 0.0.5+2
@@ -15,12 +22,12 @@
 
 ## 0.0.5
 
-* Rename HasScrollable mixin to IsScrollable.
-* Add IsSlidable mixin.
+* Rename `HasScrollable` mixin to `IsScrollable`.
+* Add `IsSlidable` mixin.
 
 ## 0.0.4
 
-* ScrollablePageObject: scroll the first Scrollable in the case of nested Scrollables.
+* `ScrollablePageObject`: scroll the first `Scrollable` in the case of nested scrollables.
 
 ## 0.0.3
 
