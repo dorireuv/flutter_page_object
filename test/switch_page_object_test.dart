@@ -5,38 +5,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
-enum _SwitchType {
+enum _Type {
   switchWidget(_buildSwitch),
   switchListTile(_buildSwitchListTile),
   ;
 
-  final _SwitchConstructor constructor;
+  final _Constructor constructor;
 
-  const _SwitchType(this.constructor);
+  const _Type(this.constructor);
 }
 
 void main() {
-  group('Switch', () {
-    _SwitchTestImpl().runTests();
-  });
-
-  group('SwitchListTile', () {
-    _SwitchListTileTestImpl().runTests();
-  });
+  for (final type in _Type.values) {
+    group('$type', () => _SwitchTest(type).runTests());
+  }
 }
 
-class _SwitchTestImpl extends _SwitchTest {
-  @override
-  _SwitchType get type => _SwitchType.switchWidget;
-}
+class _SwitchTest {
+  final _Type type;
 
-class _SwitchListTileTestImpl extends _SwitchTest {
-  @override
-  _SwitchType get type => _SwitchType.switchListTile;
-}
-
-abstract class _SwitchTest {
-  _SwitchType get type;
+  _SwitchTest(this.type);
 
   SwitchPageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).switch_(aFinder);
@@ -128,7 +116,7 @@ abstract class _SwitchTest {
 }
 
 class _Widget extends StatefulWidget {
-  final _SwitchType type;
+  final _Type type;
   final bool value;
   final bool isEnabled;
 
@@ -163,7 +151,7 @@ class _WidgetState extends State<_Widget> {
   }
 }
 
-typedef _SwitchConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   Key? key,
   required ValueChanged<bool>? onChanged,
   required bool value,

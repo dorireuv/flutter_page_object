@@ -5,38 +5,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
-enum _CheckboxType {
+enum _Type {
   checkbox(Checkbox.new),
   checkboxListTile(CheckboxListTile.new),
   ;
 
-  final _CheckboxConstructor constructor;
+  final _Constructor constructor;
 
-  const _CheckboxType(this.constructor);
+  const _Type(this.constructor);
 }
 
 void main() {
-  group('TristateCheckbox', () {
-    _TristateCheckboxTestImpl().runTests();
-  });
-
-  group('TristateCheckboxListTile', () {
-    _TristateCheckboxListTileTestImpl().runTests();
-  });
+  for (final type in _Type.values) {
+    group('$type', () => _TristateCheckboxTest(type).runTests());
+  }
 }
 
-class _TristateCheckboxTestImpl extends _TristateCheckboxTest {
-  @override
-  _CheckboxType get type => _CheckboxType.checkbox;
-}
+class _TristateCheckboxTest {
+  final _Type type;
 
-class _TristateCheckboxListTileTestImpl extends _TristateCheckboxTest {
-  @override
-  _CheckboxType get type => _CheckboxType.checkboxListTile;
-}
-
-abstract class _TristateCheckboxTest {
-  _CheckboxType get type;
+  _TristateCheckboxTest(this.type);
 
   TristateCheckboxPageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).tristateCheckbox(aFinder);
@@ -131,7 +119,7 @@ abstract class _TristateCheckboxTest {
 }
 
 class _Widget extends StatefulWidget {
-  final _CheckboxType type;
+  final _Type type;
   final bool? value;
   final bool isEnabled;
 
@@ -167,7 +155,7 @@ class _WidgetState extends State<_Widget> {
   }
 }
 
-typedef _CheckboxConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   Key? key,
   bool tristate,
   required ValueChanged<bool?>? onChanged,

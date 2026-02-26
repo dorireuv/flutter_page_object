@@ -10,33 +10,21 @@ enum _Type {
   dropdownButtonFormField(DropdownButtonFormField.new),
   ;
 
-  final _DropdownConstructor constructor;
+  final _Constructor constructor;
 
   const _Type(this.constructor);
 }
 
 void main() {
-  group('DropdownButton', () {
-    _DropdownButtonTestImpl().runTests();
-  });
-
-  group('DropdownButtonFormField', () {
-    _DropdownButtonFormFieldButtonTestImpl().runTests();
-  });
+  for (final type in _Type.values) {
+    group('$type', () => _DropdownTest(type).runTests());
+  }
 }
 
-class _DropdownButtonTestImpl extends _DropdownTest {
-  @override
-  _Type get type => _Type.dropdownButton;
-}
+class _DropdownTest {
+  final _Type type;
 
-class _DropdownButtonFormFieldButtonTestImpl extends _DropdownTest {
-  @override
-  _Type get type => _Type.dropdownButtonFormField;
-}
-
-abstract class _DropdownTest {
-  _Type get type;
+  _DropdownTest(this.type);
 
   DropdownPageObject<int> createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).dropdown(aFinder);
@@ -300,7 +288,7 @@ class _WidgetState extends State<_Widget> {
       DropdownMenuItem(value: value, child: Text(text));
 }
 
-typedef _DropdownConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   Key? key,
   required List<DropdownMenuItem<int>>? items,
   required ValueChanged<int?>? onChanged,

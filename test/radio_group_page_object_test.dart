@@ -5,38 +5,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
-enum _RadioType {
+enum _Type {
   radio(_buildRadio),
   radioListTile(_buildRadioListTile),
   ;
 
-  final _RadioConstructor constructor;
+  final _Constructor constructor;
 
-  const _RadioType(this.constructor);
+  const _Type(this.constructor);
 }
 
 void main() {
-  group('Radio', () {
-    _RadioTestImpl().runTests();
-  });
-
-  group('RadioListTile', () {
-    _RadioListTileTestImpl().runTests();
-  });
+  for (final type in _Type.values) {
+    group('$type', () => _RadioGroupTest(type).runTests());
+  }
 }
 
-class _RadioTestImpl extends _RadioGroupTest {
-  @override
-  _RadioType get type => _RadioType.radio;
-}
+class _RadioGroupTest {
+  final _Type type;
 
-class _RadioListTileTestImpl extends _RadioGroupTest {
-  @override
-  _RadioType get type => _RadioType.radioListTile;
-}
-
-abstract class _RadioGroupTest {
-  _RadioType get type;
+  _RadioGroupTest(this.type);
 
   RadioGroupPageObject<int> createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).byKey.radioGroup(aKey);
@@ -106,7 +94,7 @@ abstract class _RadioGroupTest {
 }
 
 class _Widget extends StatefulWidget {
-  final _RadioType type;
+  final _Type type;
   final bool isEnabled;
   final int groupValue;
   final List<int> values;
@@ -146,7 +134,7 @@ class _WidgetState extends State<_Widget> {
   }
 }
 
-typedef _RadioConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   required int value,
   required int? groupValue,
   required ValueChanged<int?>? onChanged,

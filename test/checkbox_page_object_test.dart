@@ -5,38 +5,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
-enum _CheckboxType {
+enum _Type {
   checkbox(Checkbox.new),
   checkboxListTile(CheckboxListTile.new),
   ;
 
-  final _CheckboxConstructor constructor;
+  final _Constructor constructor;
 
-  const _CheckboxType(this.constructor);
+  const _Type(this.constructor);
 }
 
 void main() {
-  group('Checkbox', () {
-    _CheckboxTestImpl().runTests();
-  });
-
-  group('CheckboxListTile', () {
-    _CheckboxListTileTestImpl().runTests();
-  });
+  for (final type in _Type.values) {
+    group('$type', () => _CheckboxTest(type).runTests());
+  }
 }
 
-class _CheckboxTestImpl extends _CheckboxTest {
-  @override
-  _CheckboxType get type => _CheckboxType.checkbox;
-}
+class _CheckboxTest {
+  final _Type type;
 
-class _CheckboxListTileTestImpl extends _CheckboxTest {
-  @override
-  _CheckboxType get type => _CheckboxType.checkboxListTile;
-}
-
-abstract class _CheckboxTest {
-  _CheckboxType get type;
+  _CheckboxTest(this.type);
 
   CheckboxPageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).checkbox(aFinder);
@@ -129,7 +117,7 @@ abstract class _CheckboxTest {
 }
 
 class _Widget extends StatefulWidget {
-  final _CheckboxType type;
+  final _Type type;
   final bool value;
   final bool isEnabled;
 
@@ -164,7 +152,7 @@ class _WidgetState extends State<_Widget> {
   }
 }
 
-typedef _CheckboxConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   Key? key,
   required ValueChanged<bool?>? onChanged,
   required bool? value,
