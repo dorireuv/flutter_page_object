@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object_factory.dart';
 
+const _defaultTimeout = Duration(seconds: 10);
+
 /// Base class for page objects. It extends [Finder] so that it can be used
 /// seamlessly in expect statements and other places where a [Finder] is
 /// expected.
@@ -49,28 +51,47 @@ abstract class PageObject extends Finder {
     await t.pumpAndSettle();
   }
 
+  /// Waits until the page object is shown on the screen.
+  ///
+  /// Throws if it is not shown after the given [timeout].
+  Future<void> waitUntilShown({Duration timeout = _defaultTimeout}) {
+    final hitTestableFinder = hitTestable();
+    return _wait(
+      () => hitTestableFinder.evaluate().isEmpty,
+      'Timed out waiting until $this is shown',
+      timeout,
+    );
+  }
+
   /// Waits while the page object is shown on the screen.
   ///
-  /// Throws an exception if the page object is still shown after the given [timeout].
-  Future<void> waitWhileShown(
-      {Duration timeout = const Duration(seconds: 10)}) async {
-    var elapsed = Duration.zero;
-    const step = Duration(milliseconds: 100);
+  /// Throws if it is still shown after the given [timeout].
+  Future<void> waitWhileShown({Duration timeout = _defaultTimeout}) {
     final hitTestableFinder = hitTestable();
-    while (hitTestableFinder.evaluate().isNotEmpty) {
-      if (elapsed >= timeout) {
-        throw TestFailure(
-            'Timed out waiting while $hitTestableFinder is shown');
-      }
-
-      await t.pump(step);
-      elapsed += step;
-    }
+    return _wait(
+      () => hitTestableFinder.evaluate().isNotEmpty,
+      'Timed out waiting while $this is shown',
+      timeout,
+    );
   }
 
   /// Gets the widget represented by this page object.
   T widget<T extends Widget>() {
     return t.widget<T>(this);
+  }
+
+  Future<void> _wait(bool Function() condition, String timeoutMessage,
+      Duration timeout) async {
+    var elapsed = Duration.zero;
+    const step = Duration(milliseconds: 100);
+    while (condition()) {
+      if (elapsed >= timeout) {
+        throw TestFailure(timeoutMessage);
+      }
+
+      await t.pump(step);
+      elapsed += step;
+    }
   }
 }
 

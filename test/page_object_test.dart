@@ -61,6 +61,42 @@ void main() {
     expect(pageObject.text, findsOne);
   });
 
+  group('waitUntilShown', () {
+    testWidgets('waits until the widget is shown', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      expect(pageObject.text, findsNothing);
+
+      await pageObject.button.tap();
+      await pageObject.text.waitUntilShown();
+
+      expect(pageObject.text, findsOne);
+    });
+
+    testWidgets('noop if the widget is already shown', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+      await pageObject.button.tapAndPump();
+      expect(pageObject.text, findsOne);
+
+      await pageObject.text.waitUntilShown();
+
+      expect(pageObject.text, findsOne);
+    });
+
+    testWidgets('throws on timeout if widget remains hidden', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      await expectLater(
+        () => pageObject.text
+            .waitUntilShown(timeout: const Duration(milliseconds: 50)),
+        throwsA(isA<TestFailure>()),
+      );
+    });
+  });
+
   group('waitWhileShown', () {
     testWidgets('waits until the widget is no longer shown', (t) async {
       await t.pumpWidget(const _Widget());
