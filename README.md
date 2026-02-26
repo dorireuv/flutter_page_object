@@ -44,7 +44,7 @@ class LoginPageObject extends PageObject {
 You can create your own page object by simply extending the [PageObject](lib/src/page_object.dart) base class.
 
 ## Supported page objects
- - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton`.
+ - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton` / `IconButton`.
  - [CheckboxPageObject](lib/src/checkbox_page_object.dart) - For checkbox widgets such as `Checkbox` / `CheckboxListTile`.
  - [DropdownPageObject](lib/src/dropdown_page_object.dart) - For dropdown widgets such as  `DropdownButton` / `DropdownButtonFormField`.
  - [NavButtonPageObject](lib/src/nav_button_page_object.dart) - For button widgets which navigate to another route.

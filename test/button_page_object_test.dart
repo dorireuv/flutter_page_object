@@ -5,38 +5,35 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
-enum _ButtonType {
+enum _Type {
   elevated(ElevatedButton.new),
   text(TextButton.new),
+  icon(_buildIconButton),
+  material(MaterialButton.new),
   ;
 
-  final _ButtonConstructor constructor;
+  final _Constructor constructor;
 
-  const _ButtonType(this.constructor);
+  const _Type(this.constructor);
 }
 
 void main() {
-  group('ElevatedButton', () {
-    _ElevatedButtonTestImpl().runTests();
+  for (final type in _Type.values) {
+    group('$type', () => _ButtonTest(type).runTests());
+  }
+
+  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+    await t.pumpWidget(
+        const LocalizedWidgetWrapperForTesting(child: Column(key: aKey)));
+    final pageObject = ButtonPageObject(t, aFinder);
+    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
   });
-
-  group('TextButton', () {
-    _TextButtonTestImpl().runTests();
-  });
 }
 
-class _ElevatedButtonTestImpl extends _ButtonTest {
-  @override
-  _ButtonType get type => _ButtonType.elevated;
-}
+class _ButtonTest {
+  _Type type;
 
-class _TextButtonTestImpl extends _ButtonTest {
-  @override
-  _ButtonType get type => _ButtonType.text;
-}
-
-abstract class _ButtonTest {
-  _ButtonType get type;
+  _ButtonTest(this.type);
 
   ButtonPageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).button(aFinder);
@@ -58,11 +55,25 @@ abstract class _ButtonTest {
         expect(pageObject.isEnabled, isFalse);
       });
     });
+
+    group('isDisabled', () {
+      testWidgets('disabled --> true', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: false));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isDisabled, isTrue);
+      });
+
+      testWidgets('enabled --> false', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: true));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isDisabled, isFalse);
+      });
+    });
   }
 }
 
 class _Widget extends StatelessWidget {
-  final _ButtonType type;
+  final _Type type;
   final bool isEnabled;
 
   const _Widget({
@@ -84,8 +95,20 @@ class _Widget extends StatelessWidget {
   }
 }
 
-typedef _ButtonConstructor = Widget Function({
+typedef _Constructor = Widget Function({
   Key? key,
   required VoidCallback? onPressed,
   required Widget child,
 });
+
+Widget _buildIconButton({
+  Key? key,
+  required VoidCallback? onPressed,
+  required Widget child,
+}) {
+  return IconButton(
+    key: key,
+    onPressed: onPressed,
+    icon: child,
+  );
+}
