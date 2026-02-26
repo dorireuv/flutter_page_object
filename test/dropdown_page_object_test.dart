@@ -188,7 +188,7 @@ class _DropdownTest {
         expect(pageObject.isOpen, isTrue);
       });
 
-      testWidgets('opend and then closed --> false', (t) async {
+      testWidgets('opened and then closed --> false', (t) async {
         await t.pumpWidget(createWidget(items: {1: 'One', 2: 'Two'}));
         final pageObject = createPageObject(t);
 

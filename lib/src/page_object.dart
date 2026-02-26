@@ -32,7 +32,7 @@ abstract class PageObject extends Finder {
   /// Accesses page objects starting from the root of the widget tree.
   late final root = PageObjectFactory.root(t);
 
-  /// Accesses page objects which are descedants of this page object.
+  /// Accesses page objects which are descendants of this page object.
   late final descendantOf = PageObjectFactory.descendantOf(t, this);
 
   /// Taps the page object.

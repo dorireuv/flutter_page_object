@@ -60,4 +60,4 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [WidgetPageObject](lib/src/widget_page_object.dart) - Generic page object for any widget.
 
 ## Contribution
-Your contribution is more than welcom, feel free to contact me on any matter.
+Your contribution is more than welcome, feel free to contact me on any matter.
