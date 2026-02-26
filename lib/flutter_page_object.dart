@@ -9,6 +9,8 @@ export 'src/nav_button_page_object.dart';
 export 'src/page_object.dart';
 export 'src/page_object_builder.dart';
 export 'src/page_object_factory.dart';
+export 'src/radio_group_page_object.dart';
+export 'src/radio_page_object.dart';
 export 'src/scrollable_list_page_object.dart';
 export 'src/scrollable_page_object.dart';
 export 'src/slidable_page_object.dart';
