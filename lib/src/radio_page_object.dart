@@ -17,16 +17,16 @@ class RadioPageObject<T> extends PageObject {
   bool get isEnabled => !isDisabled;
 
   /// Whether the radio is selected.
-  bool get isSelected {
-    final radioWidget = _radioWidget;
-    return radioWidget.value == radioWidget.groupValue;
-  }
+  bool get isSelected => value == groupValue;
 
   /// The value of the radio.
   T get value => _radioWidget.value;
 
   /// The value of the radio group.
-  T? get groupValue => _radioWidget.groupValue;
+  T? get groupValue {
+    // ignore: deprecated_member_use
+    return _radioWidget.groupValue;
+  }
 
   /// Selects the radio.
   Future<void> select() {
