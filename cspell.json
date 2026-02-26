@@ -1,0 +1,19 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "words": [
+        "buildlog",
+        "Dori",
+        "pubspec",
+        "Reuveni",
+        "scrollables"
+    ],
+    "ignorePaths": [
+        "cspell.json",
+        "pubspec.lock",
+        "coverage/**",
+        ".dart_tool/**",
+        "build/**",
+        "example/build/**"
+    ]
+}
