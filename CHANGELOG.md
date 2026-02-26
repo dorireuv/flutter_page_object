@@ -1,3 +1,10 @@
+## 0.0.6
+
+* Added RadioPageObject.
+* Added RadioGroupPageObject.
+* Added SwitchPageObject.
+* Documentation updates.
+
 ## 0.0.5+2
 
 * Documentation updates.
