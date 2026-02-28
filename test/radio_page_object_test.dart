@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
@@ -18,6 +19,19 @@ void main() {
   for (final type in _Type.values) {
     group('$type', () => _RadioTest(type).runTests());
   }
+
+  testWidgets('unsupported widget --> throws', (t) async {
+    await t.pumpWidget(
+        const LocalizedWidgetWrapperForTesting(child: SizedBox(key: aKey)));
+
+    final pageObject = PageObjectFactory.root(t).radio<int>(aFinder);
+
+    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.isDisabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.isSelected, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.value, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.groupValue, throwsA(isA<TestFailure>()));
+  });
 }
 
 class _RadioTest {
