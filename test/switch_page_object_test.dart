@@ -6,8 +6,8 @@ import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
-  switchWidget(_buildSwitch),
-  switchListTile(_buildSwitchListTile),
+  switchWidget(Switch.new),
+  switchListTile(SwitchListTile.new),
   ;
 
   final _Constructor constructor;
@@ -156,24 +156,3 @@ typedef _Constructor = Widget Function({
   required ValueChanged<bool>? onChanged,
   required bool value,
 });
-
-Widget _buildSwitch({
-  Key? key,
-  required ValueChanged<bool>? onChanged,
-  required bool value,
-}) {
-  return Switch(key: key, value: value, onChanged: onChanged);
-}
-
-Widget _buildSwitchListTile({
-  Key? key,
-  required ValueChanged<bool>? onChanged,
-  required bool value,
-}) {
-  return SwitchListTile(
-    key: key,
-    value: value,
-    onChanged: onChanged,
-    title: const Text('Title'),
-  );
-}

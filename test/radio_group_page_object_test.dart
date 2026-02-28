@@ -6,8 +6,8 @@ import 'common.dart';
 import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
-  radio(_buildRadio),
-  radioListTile(_buildRadioListTile),
+  radio(Radio.new),
+  radioListTile(RadioListTile.new),
   ;
 
   final _Constructor constructor;
@@ -139,28 +139,3 @@ typedef _Constructor = Widget Function({
   required int? groupValue,
   required ValueChanged<int?>? onChanged,
 });
-
-Widget _buildRadio({
-  required int value,
-  required int? groupValue,
-  required ValueChanged<int?>? onChanged,
-}) {
-  return Radio<int>(
-    value: value,
-    groupValue: groupValue,
-    onChanged: onChanged,
-  );
-}
-
-Widget _buildRadioListTile({
-  required int value,
-  required int? groupValue,
-  required ValueChanged<int?>? onChanged,
-}) {
-  return RadioListTile<int>(
-    value: value,
-    groupValue: groupValue,
-    onChanged: onChanged,
-    title: Text('Radio $value'),
-  );
-}
