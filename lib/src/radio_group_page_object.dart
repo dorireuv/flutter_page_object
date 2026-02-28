@@ -9,7 +9,7 @@ class RadioGroupPageObject<T> extends PageObject {
 
   /// Returns true if the radio button with the given [value] is selected.
   bool isSelected(T value) {
-    final radio = t.widget<Radio<T>>(_radioFinderForValue(value));
+    final radio = _radioPageObjectForValue(value);
     return radio.value == radio.groupValue;
   }
 
@@ -27,21 +27,31 @@ class RadioGroupPageObject<T> extends PageObject {
   }
 
   /// Selects the radio button with the given [value].
-  Future<void> select(T value) =>
-      _radioPageObject(_radioFinderForValue(value)).select();
+  Future<void> select(T value) => _radioPageObjectForValue(value).select();
+
+  RadioPageObject<T> _radioPageObjectForValue(T value) =>
+      _radioPageObject(_radioFinderForValue(value));
 
   RadioPageObject<T> _radioPageObject(Finder finder) =>
       RadioPageObject<T>(t, finder);
 
   Finder get _radioFinder => find.descendant(
-      of: this, matching: find.byType(Radio<T>), matchRoot: true);
-
-  Finder _radioFinderForValue(T value) => find.descendant(
         of: this,
         matching: find.byWidgetPredicate(
-          (widget) => widget is Radio<T> && widget.value == value,
-        ),
+            (widget) => widget is Radio<T> || widget is RadioListTile<T>),
+        matchRoot: true,
       );
+
+  Finder _radioFinderForValue(T value) => find
+      .descendant(
+        of: this,
+        matching: find.byWidgetPredicate(
+          (widget) =>
+              (widget is Radio<T> && widget.value == value) ||
+              (widget is RadioListTile<T> && widget.value == value),
+        ),
+      )
+      .first;
 }
 
 /// Extension on [PageObjectFactory] to create [RadioGroupPageObject]s.
