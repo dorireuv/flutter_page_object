@@ -33,6 +33,9 @@ class ScrollableListPageObject<T extends PageObject> extends PageObject
   /// Gets all items in the list.
   List<T> get all => _widgetList.all;
 
+  /// Gets the number of items in the list.
+  int get count => _widgetList.count;
+
   /// Gets the page object item matching the given [itemFinder].
   T item(Finder itemFinder) => _widgetList.item(itemFinder);
 }

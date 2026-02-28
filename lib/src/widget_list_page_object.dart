@@ -24,10 +24,10 @@ class WidgetListPageObject<T extends PageObject> extends PageObject {
   T operator [](int index) => _buildItem(_itemsFinder.at(index));
 
   /// Gets all items.
-  List<T> get all {
-    final count = _itemsFinder.evaluate().length;
-    return List<T>.generate(count, (i) => this[i]);
-  }
+  List<T> get all => List<T>.generate(count, (i) => this[i]);
+
+  /// Gets the number of items in the list.
+  int get count => _itemsFinder.evaluate().length;
 
   /// Gets the page object item matching the given [itemFinder].
   T item(Finder itemFinder) => _buildItem(itemFinder);

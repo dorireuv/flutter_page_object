@@ -112,6 +112,52 @@ void main() {
       });
     });
   });
+
+  group('list', () {
+    testWidgets('all --> all items', (t) async {
+      await t.pumpWidget(const _Widget(itemCount: 3, itemText: _itemText));
+      final pageObject = createPageObject(t);
+      expect(pageObject.all.map((e) => e.text),
+          containsAllInOrder(['0', '1', '2']));
+    });
+
+    testWidgets('count --> number of items', (t) async {
+      await t.pumpWidget(const _Widget(itemCount: 3));
+      final pageObject = createPageObject(t);
+      expect(pageObject.count, 3);
+    });
+
+    group('operator []', () {
+      testWidgets('in range --> finds', (t) async {
+        await t.pumpWidget(const _Widget(itemCount: 3, itemText: _itemText));
+
+        final pageObject = createPageObject(t);
+
+        expect(pageObject[1], findsOne);
+        expect(pageObject[1].text, '1');
+      });
+
+      testWidgets('out of range --> throws', (t) async {
+        await t.pumpWidget(const _Widget(itemCount: 3));
+        final pageObject = createPageObject(t);
+        expect(() => pageObject[3], throwsRangeError);
+      });
+    });
+
+    group('item', () {
+      testWidgets('exists --> finds', (t) async {
+        await t.pumpWidget(const _Widget(itemCount: 3, itemText: _itemText));
+        final pageObject = createPageObject(t);
+        expect(pageObject.item(find.text('1')), findsOne);
+      });
+
+      testWidgets('does not exist --> finds nothing', (t) async {
+        await t.pumpWidget(const _Widget(itemCount: 3, itemText: _itemText));
+        final pageObject = createPageObject(t);
+        expect(pageObject.item(find.text('3')), findsNothing);
+      });
+    });
+  });
 }
 
 const _defaultItemHeight = 100.0;
@@ -119,8 +165,9 @@ const _defaultItemHeight = 100.0;
 class _Widget extends StatelessWidget {
   final int itemCount;
   final Key Function(int)? itemKey;
+  final String Function(int)? itemText;
 
-  const _Widget({required this.itemCount, this.itemKey});
+  const _Widget({required this.itemCount, this.itemKey, this.itemText});
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +186,12 @@ class _Widget extends StatelessWidget {
   Widget _item(int i) {
     return SizedBox(
       height: _defaultItemHeight,
-      child: Text('$i', key: (itemKey ?? _itemKey)(i)),
+      child: Text((itemText ?? _itemText)(i), key: (itemKey ?? _itemKey)(i)),
     );
   }
 }
 
 Key _itemKey(int i) => Key('item_key_$i');
 Finder _itemFinder(int i) => find.byKey(_itemKey(i));
+String _itemText(int i) => '$i';
 final _refreshProgressIndicatorFinder = find.byType(RefreshProgressIndicator);

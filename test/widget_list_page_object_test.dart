@@ -10,11 +10,17 @@ void main() {
       PageObjectFactory.root(t)
           .widgetList(aFinder, find.byType(Text), TextPageObject.new);
 
-  testWidgets('all --> returns all items', (t) async {
+  testWidgets('all --> all items', (t) async {
     await t.pumpWidget(const _Widget(items: ['0', '1', '2']));
     final pageObject = createPageObject(t);
     expect(
         pageObject.all.map((e) => e.text), containsAllInOrder(['0', '1', '2']));
+  });
+
+  testWidgets('count --> number of items', (t) async {
+    await t.pumpWidget(const _Widget(items: ['0', '1', '2']));
+    final pageObject = createPageObject(t);
+    expect(pageObject.count, 3);
   });
 
   group('operator []', () {
