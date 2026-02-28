@@ -10,13 +10,13 @@ void main() {
       PageObjectFactory.root(t).progressIndicator(aFinder);
 
   group('value', () {
-    testWidgets('determinate --> returns value', (t) async {
+    testWidgets('determinate --> value', (t) async {
       await t.pumpWidget(const _Widget(value: 0.5));
       final pageObject = createPageObject(t);
       expect(pageObject.value, 0.5);
     });
 
-    testWidgets('indeterminate --> returns null', (t) async {
+    testWidgets('indeterminate --> null', (t) async {
       await t.pumpWidget(const _Widget(value: null));
       final pageObject = createPageObject(t);
       expect(pageObject.value, isNull);

@@ -28,13 +28,13 @@ void main() {
   });
 
   group('divisions', () {
-    testWidgets('null --> returns null', (t) async {
+    testWidgets('null --> null', (t) async {
       await t.pumpWidget(const _Widget(divisions: null));
       final pageObject = createPageObject(t);
       expect(pageObject.divisions, isNull);
     });
 
-    testWidgets('not null --> returns divisions', (t) async {
+    testWidgets('not null --> divisions', (t) async {
       await t.pumpWidget(const _Widget(divisions: 5));
       final pageObject = createPageObject(t);
       expect(pageObject.divisions, 5);
