@@ -1,3 +1,7 @@
+## 0.0.9+1
+
+* RadioPageObject - Ignore deprecated member use.
+
 ## 0.0.9
 
 * Address some flaky tests.
