@@ -35,6 +35,7 @@ class RadioPageObject<T> extends PageObject {
   T? get groupValue {
     final w = widget();
     if (w is RadioListTile<T>) {
+      // ignore: deprecated_member_use
       return w.groupValue;
     } else if (w is Radio<T>) {
       // ignore: deprecated_member_use
@@ -53,8 +54,10 @@ class RadioPageObject<T> extends PageObject {
   Function(T?)? get _onChanged {
     final w = widget();
     if (w is RadioListTile<T>) {
+      // ignore: deprecated_member_use
       return w.onChanged;
     } else if (w is Radio<T>) {
+      // ignore: deprecated_member_use
       return w.onChanged;
     }
 
