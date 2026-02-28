@@ -11,7 +11,7 @@ class RadioPageObject<T> extends PageObject {
   RadioPageObject(super.t, super.finder);
 
   /// Whether the radio is disabled (i.e. cannot be tapped).
-  bool get isDisabled => _radioWidget.onChanged == null;
+  bool get isDisabled => _onChanged == null;
 
   /// Whether the radio is enabled (i.e. can be tapped).
   bool get isEnabled => !isDisabled;
@@ -20,12 +20,28 @@ class RadioPageObject<T> extends PageObject {
   bool get isSelected => value == groupValue;
 
   /// The value of the radio.
-  T get value => _radioWidget.value;
+  T get value {
+    final w = widget();
+    if (w is RadioListTile<T>) {
+      return w.value;
+    } else if (w is Radio<T>) {
+      return w.value;
+    }
+
+    throw _testFailure(w);
+  }
 
   /// The value of the radio group.
   T? get groupValue {
-    // ignore: deprecated_member_use
-    return _radioWidget.groupValue;
+    final w = widget();
+    if (w is RadioListTile<T>) {
+      return w.groupValue;
+    } else if (w is Radio<T>) {
+      // ignore: deprecated_member_use
+      return w.groupValue;
+    }
+
+    throw _testFailure(w);
   }
 
   /// Selects the radio.
@@ -34,12 +50,21 @@ class RadioPageObject<T> extends PageObject {
     await tapAndPump();
   }
 
-  Radio<T> get _radioWidget => t.widget(_radioFinder);
+  Function(T?)? get _onChanged {
+    final w = widget();
+    if (w is RadioListTile<T>) {
+      return w.onChanged;
+    } else if (w is Radio<T>) {
+      return w.onChanged;
+    }
 
-  Finder get _radioFinder => find.descendant(
-      of: this,
-      matching: find.byWidgetPredicate((widget) => widget is Radio<T>),
-      matchRoot: true);
+    throw _testFailure(w);
+  }
+
+  static TestFailure _testFailure(Widget widget) {
+    return TestFailure(
+        'RadioPageObject does not support widget of type "${widget.runtimeType}".');
+  }
 }
 
 /// Extension on [PageObjectFactory] to create [RadioPageObject]s.
