@@ -44,7 +44,7 @@ class _RadioTest {
     group('isEnabled', () {
       testWidgets('enabled --> true', (t) async {
         await t.pumpWidget(createWidget(isEnabled: true));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -53,7 +53,7 @@ class _RadioTest {
 
       testWidgets('disabled --> false', (t) async {
         await t.pumpWidget(createWidget(isEnabled: false));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
         expect(pageObject.isEnabled, isFalse);
@@ -63,7 +63,7 @@ class _RadioTest {
     group('isDisabled', () {
       testWidgets('enabled --> false', (t) async {
         await t.pumpWidget(createWidget(isEnabled: true));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -72,7 +72,7 @@ class _RadioTest {
 
       testWidgets('disabled --> true', (t) async {
         await t.pumpWidget(createWidget(isEnabled: false));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -83,7 +83,7 @@ class _RadioTest {
     group('isSelected', () {
       testWidgets('selected --> true', (t) async {
         await t.pumpWidget(createWidget(groupValue: 1, values: [1, 2]));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -92,7 +92,7 @@ class _RadioTest {
 
       testWidgets('not selected --> false', (t) async {
         await t.pumpWidget(createWidget(groupValue: 2, values: [1, 2]));
-        await t.pump();
+        await t.pumpAndSettle();
 
         final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -102,7 +102,7 @@ class _RadioTest {
 
     testWidgets('value --> value', (t) async {
       await t.pumpWidget(createWidget(values: [1]));
-      await t.pump();
+      await t.pumpAndSettle();
 
       final pageObject = createPageObject(t, key: _keyForRadio(1));
 
@@ -111,7 +111,7 @@ class _RadioTest {
 
     testWidgets('groupValue --> group value', (t) async {
       await t.pumpWidget(createWidget(groupValue: 1, values: [2]));
-      await t.pump();
+      await t.pumpAndSettle();
 
       final pageObject = createPageObject(t, key: _keyForRadio(2));
 
@@ -122,7 +122,7 @@ class _RadioTest {
       testWidgets('enabled and not selected --> selected', (t) async {
         await t.pumpWidget(
             createWidget(isEnabled: true, groupValue: 1, values: [1, 2]));
-        await t.pump();
+        await t.pumpAndSettle();
         final pageObject1 = createPageObject(t, key: _keyForRadio(1));
         final pageObject2 = createPageObject(t, key: _keyForRadio(2));
         expect(pageObject1.isSelected, isTrue);
@@ -137,7 +137,7 @@ class _RadioTest {
       testWidgets('disabled --> throws', (t) async {
         await t.pumpWidget(
             createWidget(isEnabled: false, groupValue: 1, values: [1, 2]));
-        await t.pump();
+        await t.pumpAndSettle();
         final pageObject = createPageObject(t, key: _keyForRadio(1));
         await expectLater(() => pageObject.select(), throwsStateError);
       });
