@@ -1,3 +1,7 @@
+## 0.0.9
+
+* Address some flaky tests.
+
 ## 0.0.8
 
 * Added `SliderPageObject`.

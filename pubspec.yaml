@@ -1,6 +1,6 @@
 name: flutter_page_object
 description: "Helps to implement the Page Object pattern in a Flutter app."
-version: 0.0.8
+version: 0.0.9
 homepage: https://github.com/dorireuv/flutter_page_object/
 repository: https://github.com/dorireuv/flutter_page_object/
 issue_tracker: https://github.com/dorireuv/flutter_page_object/issues
