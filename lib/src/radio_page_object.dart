@@ -29,9 +29,9 @@ class RadioPageObject<T> extends PageObject {
   }
 
   /// Selects the radio.
-  Future<void> select() {
+  Future<void> select() async {
     checkState(isEnabled);
-    return tapAndPump();
+    await tapAndPump();
   }
 
   Radio<T> get _radioWidget => t.widget(_radioFinder);

@@ -72,6 +72,7 @@ class _RadioGroupTest {
       testWidgets('enabled and not selected --> selected', (t) async {
         await t.pumpWidget(
             createWidget(isEnabled: true, groupValue: 1, values: [1, 2]));
+        await t.pump();
         final pageObject = createPageObject(t);
 
         expect(pageObject.isSelected(1), isTrue);
