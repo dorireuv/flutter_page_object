@@ -17,6 +17,7 @@ export 'src/scrollable_page_object.dart';
 export 'src/slidable_page_object.dart';
 export 'src/slider_page_object.dart';
 export 'src/switch_page_object.dart';
+export 'src/tab_bar_page_object.dart';
 export 'src/text_form_field_page_object.dart';
 export 'src/text_page_object.dart';
 export 'src/tristate_checkbox_page_object.dart';
