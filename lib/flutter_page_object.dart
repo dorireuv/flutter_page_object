@@ -14,6 +14,7 @@ export 'src/radio_page_object.dart';
 export 'src/scrollable_list_page_object.dart';
 export 'src/scrollable_page_object.dart';
 export 'src/slidable_page_object.dart';
+export 'src/slider_page_object.dart';
 export 'src/switch_page_object.dart';
 export 'src/text_form_field_page_object.dart';
 export 'src/text_page_object.dart';

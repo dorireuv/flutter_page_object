@@ -53,6 +53,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [ScrollableListPageObject](lib/src/scrollable_list_page_object.dart) - For scrollable list widgets such as `ListView` / `GridView`.
  - [ScrollablePageObject](lib/src/scrollable_page_object.dart) - For scrollable widgets such as `SingleChildScrollView` / `ListView`. The is also `IsScrollable` mixin if your page object is scrollable.
  - [SlidablePageObject](lib/src/slidable_page_object.dart) - For slidable widgets such as `PageView` / `TabView`. There is `IsSlidable` mixin if your page object is slidable.
+ - [SliderPageObject](lib/src/slider_page_object.dart) - For slider widgets such as `Slider`. 
  - [SwitchPageObject](lib/src/switch_page_object.dart) - For switch widgets such as `Switch` / `SwitchListTile`.
  - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
  - [TristateCheckboxPageObject](lib/src/tristate_checkbox_page_object.dart) - For checkbox widgets which are in tristate mode such as `Checkbox` / `CheckboxListTile`.
