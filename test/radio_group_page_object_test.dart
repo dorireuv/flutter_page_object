@@ -43,19 +43,13 @@ class _RadioGroupTest {
     group('isSelected', () {
       testWidgets('selected --> true', (t) async {
         await t.pumpWidget(createWidget(groupValue: 1, values: [1, 2]));
-        await t.pumpAndSettle();
-
         final pageObject = createPageObject(t);
-
         expect(pageObject.isSelected(1), isTrue);
       });
 
       testWidgets('not selected --> false', (t) async {
         await t.pumpWidget(createWidget(groupValue: 2, values: [1, 2]));
-        await t.pumpAndSettle();
-
         final pageObject = createPageObject(t);
-
         expect(pageObject.isSelected(1), isFalse);
       });
     });
@@ -63,19 +57,13 @@ class _RadioGroupTest {
     group('groupValue', () {
       testWidgets('selected --> value', (t) async {
         await t.pumpWidget(createWidget(groupValue: 1, values: [1, 2]));
-        await t.pumpAndSettle();
-
         final pageObject = createPageObject(t);
-
         expect(pageObject.groupValue, 1);
       });
 
       testWidgets('not selected --> null', (t) async {
         await t.pumpWidget(createWidget(groupValue: 3, values: [1, 2]));
-        await t.pumpAndSettle();
-
         final pageObject = createPageObject(t);
-
         expect(pageObject.groupValue, isNull);
       });
     });
@@ -84,7 +72,6 @@ class _RadioGroupTest {
       testWidgets('enabled and not selected --> selected', (t) async {
         await t.pumpWidget(
             createWidget(isEnabled: true, groupValue: 1, values: [1, 2]));
-        await t.pumpAndSettle();
         final pageObject = createPageObject(t);
 
         expect(pageObject.isSelected(1), isTrue);
@@ -99,10 +86,7 @@ class _RadioGroupTest {
       testWidgets('disabled --> throws', (t) async {
         await t.pumpWidget(
             createWidget(isEnabled: false, groupValue: 1, values: [1, 2]));
-        await t.pumpAndSettle();
-
         final pageObject = createPageObject(t);
-
         await expectLater(() => pageObject.select(2), throwsStateError);
       });
     });
