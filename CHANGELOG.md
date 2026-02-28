@@ -1,3 +1,12 @@
+## 0.0.8
+
+* Added `SliderPageObject`.
+* Added `ProgressIndicatorPageObject`.
+* Added `TabBarPageObject`.
+* Added `BottomNavigationBarPageObject`.
+* `ScrollableListPageObject` / `WidgetListPageObject` - added `count` API.
+* Simplify tests.
+
 ## 0.0.7
 
 * `PageObject` - added `waitUntilShown`.
