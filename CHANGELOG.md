@@ -1,3 +1,7 @@
+## 0.1.0
+
+* `BottomNavigationBarPageObject` - add selectByIcon and item.
+
 ## 0.0.9+1
 
 * RadioPageObject - Ignore deprecated member use.
