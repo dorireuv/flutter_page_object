@@ -44,7 +44,8 @@ final class PageObjectFactory<K> {
   }
 
   /// Creates a page object of type [T] using the given [staticBuilder].
-  T createStatic<T extends PageObject>(T Function(WidgetTester) staticBuilder) {
+  T createStatic<T extends PageObject>(
+      PageObjectStaticBuilder<T> staticBuilder) {
     return staticBuilder(_t);
   }
 }

@@ -6,3 +6,8 @@ import 'page_object.dart';
 /// [WidgetTester] and a [Finder].
 typedef PageObjectBuilder<T extends PageObject> = T Function(
     WidgetTester, Finder);
+
+/// A typedef for a function that builds a page object of type [T] given a
+/// [WidgetTester].
+typedef PageObjectStaticBuilder<T extends PageObject> = T Function(
+    WidgetTester);
