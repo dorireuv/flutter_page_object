@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,16 +12,20 @@ class ButtonPageObject extends PageObject {
 
   /// Whether the button is enabled.
   bool get isEnabled {
-    final widget = this.widget<Widget>();
-    if (widget is ButtonStyleButton) {
-      return widget.onPressed != null;
-    } else if (widget is IconButton) {
-      return widget.onPressed != null;
-    } else if (widget is MaterialButton) {
-      return widget.onPressed != null;
+    final w = widget<Widget>();
+    if (w is ButtonStyleButton) {
+      return w.onPressed != null;
+    } else if (w is IconButton) {
+      return w.onPressed != null;
+    } else if (w is MaterialButton) {
+      return w.onPressed != null;
+    } else if (w is CupertinoButton) {
+      return w.onPressed != null;
+    } else if (w is FloatingActionButton) {
+      return w.onPressed != null;
     }
     throw TestFailure(
-        'ButtonPageObject does not support widget of type "${widget.runtimeType}".');
+        'ButtonPageObject does not support widget of type "${w.runtimeType}".');
   }
 
   /// Whether the button is disabled.

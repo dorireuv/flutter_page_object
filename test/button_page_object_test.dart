@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,6 +11,8 @@ enum _Type {
   text(TextButton.new),
   icon(_buildIconButton),
   material(MaterialButton.new),
+  cupertino(CupertinoButton.new),
+  fab(FloatingActionButton.new),
   ;
 
   final _Constructor constructor;
@@ -31,7 +34,7 @@ void main() {
 }
 
 class _ButtonTest {
-  _Type type;
+  final _Type type;
 
   _ButtonTest(this.type);
 
