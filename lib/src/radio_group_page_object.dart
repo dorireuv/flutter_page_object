@@ -38,24 +38,34 @@ class RadioGroupPageObject<T> extends PageObject {
 
   Finder get _radioFinder => find.descendant(
         of: this,
-        matching: find.byWidgetPredicate((widget) =>
-            widget is Radio<T> ||
-            widget is RadioListTile<T> ||
-            widget is CupertinoRadio<T>),
+        matching: find.byWidgetPredicate(_isRadio),
         matchRoot: true,
       );
 
   Finder _radioFinderForValue(T value) => find
       .descendant(
         of: this,
-        matching: find.byWidgetPredicate(
-          (widget) =>
-              (widget is Radio<T> && widget.value == value) ||
-              (widget is RadioListTile<T> && widget.value == value) ||
-              (widget is CupertinoRadio<T> && widget.value == value),
-        ),
+        matching: find
+            .byWidgetPredicate((w) => _isRadio(w) && _radioValue(w) == value),
       )
       .first;
+
+  bool _isRadio(Widget widget) =>
+      widget is Radio<T> ||
+      widget is RadioListTile<T> ||
+      widget is CupertinoRadio<T>;
+
+  T _radioValue(Widget widget) {
+    if (widget is Radio<T>) {
+      return widget.value;
+    } else if (widget is RadioListTile<T>) {
+      return widget.value;
+    } else if (widget is CupertinoRadio<T>) {
+      return widget.value;
+    }
+
+    throw TestFailure('Unknown radio widget type: ${widget.runtimeType}');
+  }
 }
 
 /// Extension on [PageObjectFactory] to create [RadioGroupPageObject]s.
