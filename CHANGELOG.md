@@ -1,10 +1,19 @@
+## 0.1.1
+
+* `RadioPageObject` - support `CupertinoRadio`.
+* `ButtonPageObject` - support `CupertinoButton` and `FloatingActionButton`.
+
+## 0.1.0+1
+
+* Documentation updates.
+
 ## 0.1.0
 
 * `BottomNavigationBarPageObject` - add selectByIcon and item.
 
 ## 0.0.9+1
 
-* RadioPageObject - Ignore deprecated member use.
+* `RadioPageObject` - ignore deprecated member use.
 
 ## 0.0.9
 
