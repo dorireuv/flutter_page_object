@@ -11,19 +11,22 @@ class ButtonPageObject extends PageObject {
   ButtonPageObject(super.t, super.finder);
 
   /// Whether the button is enabled.
-  bool get isEnabled {
+  bool get isEnabled => _buttonWidget.onPressed != null;
+
+  _ButtonWidget get _buttonWidget {
     final w = widget<Widget>();
     if (w is ButtonStyleButton) {
-      return w.onPressed != null;
+      return _ButtonWidget(w.onPressed);
     } else if (w is IconButton) {
-      return w.onPressed != null;
+      return _ButtonWidget(w.onPressed);
     } else if (w is MaterialButton) {
-      return w.onPressed != null;
+      return _ButtonWidget(w.onPressed);
     } else if (w is CupertinoButton) {
-      return w.onPressed != null;
+      return _ButtonWidget(w.onPressed);
     } else if (w is FloatingActionButton) {
-      return w.onPressed != null;
+      return _ButtonWidget(w.onPressed);
     }
+
     throw TestFailure(
         'ButtonPageObject does not support widget of type "${w.runtimeType}".');
   }
@@ -36,4 +39,10 @@ class ButtonPageObject extends PageObject {
 extension ButtonPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [ButtonPageObject] with the given [key].
   ButtonPageObject button(K key) => create(ButtonPageObject.new, key);
+}
+
+class _ButtonWidget {
+  final VoidCallback? onPressed;
+
+  _ButtonWidget(this.onPressed);
 }
