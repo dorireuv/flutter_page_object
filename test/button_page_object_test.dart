@@ -13,6 +13,7 @@ enum _Type {
   material(MaterialButton.new),
   cupertino(CupertinoButton.new),
   fab(FloatingActionButton.new),
+  rawMaterial(RawMaterialButton.new),
   ;
 
   final _Constructor constructor;

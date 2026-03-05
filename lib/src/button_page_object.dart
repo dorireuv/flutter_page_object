@@ -25,6 +25,8 @@ class ButtonPageObject extends PageObject {
       return _ButtonWidget(w.onPressed);
     } else if (w is FloatingActionButton) {
       return _ButtonWidget(w.onPressed);
+    } else if (w is RawMaterialButton) {
+      return _ButtonWidget(w.onPressed);
     }
 
     throw TestFailure(
