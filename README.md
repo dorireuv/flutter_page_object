@@ -51,7 +51,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [NavButtonPageObject](lib/src/nav_button_page_object.dart) - For button widgets which navigate to another route.
  - [ProgressIndicatorPageObject](lib/src/progress_indicator_page_object.dart) - For `ProgressIndicator` widget.
  - [RadioGroupPageObject](lib/src/radio_group_page_object.dart) - For radio group.
- - [RadioPageObject](lib/src/radio_page_object.dart) - For radio widgets such as `Radio` / `RadioListTile`.
+ - [RadioPageObject](lib/src/radio_page_object.dart) - For radio widgets such as `Radio` / `RadioListTile` / `CupertinoRadio`.
  - [ScrollableListPageObject](lib/src/scrollable_list_page_object.dart) - For scrollable list widgets such as `ListView` / `GridView`.
  - [ScrollablePageObject](lib/src/scrollable_page_object.dart) - For scrollable widgets such as `SingleChildScrollView` / `ListView`. The is also `IsScrollable` mixin if your page object is scrollable.
  - [SlidablePageObject](lib/src/slidable_page_object.dart) - For slidable widgets such as `PageView` / `TabView`. There is `IsSlidable` mixin if your page object is slidable.

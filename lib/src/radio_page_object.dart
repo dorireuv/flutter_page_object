@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/src/check.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,30 +21,10 @@ class RadioPageObject<T> extends PageObject {
   bool get isSelected => value == groupValue;
 
   /// The value of the radio.
-  T get value {
-    final w = widget();
-    if (w is RadioListTile<T>) {
-      return w.value;
-    } else if (w is Radio<T>) {
-      return w.value;
-    }
-
-    throw _testFailure(w);
-  }
+  T get value => _radioWidget.value;
 
   /// The value of the radio group.
-  T? get groupValue {
-    final w = widget();
-    if (w is RadioListTile<T>) {
-      // ignore: deprecated_member_use
-      return w.groupValue;
-    } else if (w is Radio<T>) {
-      // ignore: deprecated_member_use
-      return w.groupValue;
-    }
-
-    throw _testFailure(w);
-  }
+  T? get groupValue => _radioWidget.groupValue;
 
   /// Selects the radio.
   Future<void> select() async {
@@ -51,14 +32,34 @@ class RadioPageObject<T> extends PageObject {
     await tapAndPump();
   }
 
-  Function(T?)? get _onChanged {
+  Function(T?)? get _onChanged => _radioWidget.onChanged;
+
+  _RadioWidget<T> get _radioWidget {
     final w = widget();
     if (w is RadioListTile<T>) {
-      // ignore: deprecated_member_use
-      return w.onChanged;
+      return _RadioWidget(
+        w.value,
+        // ignore: deprecated_member_use
+        w.groupValue,
+        // ignore: deprecated_member_use
+        w.onChanged,
+      );
     } else if (w is Radio<T>) {
-      // ignore: deprecated_member_use
-      return w.onChanged;
+      return _RadioWidget(
+        w.value,
+        // ignore: deprecated_member_use
+        w.groupValue,
+        // ignore: deprecated_member_use
+        w.onChanged,
+      );
+    } else if (w is CupertinoRadio<T>) {
+      return _RadioWidget(
+        w.value,
+        // ignore: deprecated_member_use
+        w.groupValue,
+        // ignore: deprecated_member_use
+        w.onChanged,
+      );
     }
 
     throw _testFailure(w);
@@ -75,4 +76,12 @@ extension RadioPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [RadioPageObject] with the given [key].
   RadioPageObject<T> radio<T>(K key) =>
       create((t, finder) => RadioPageObject<T>(t, finder), key);
+}
+
+class _RadioWidget<T> {
+  final T value;
+  final T? groupValue;
+  final ValueChanged<T?>? onChanged;
+
+  _RadioWidget(this.value, this.groupValue, this.onChanged);
 }
