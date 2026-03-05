@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +9,7 @@ import 'localized_widget_wrapper_for_testing.dart';
 enum _Type {
   radio(Radio.new),
   radioListTile(RadioListTile.new),
+  cupertinoRadio(CupertinoRadio.new),
   ;
 
   final _Constructor constructor;

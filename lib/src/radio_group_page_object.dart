@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,8 +38,10 @@ class RadioGroupPageObject<T> extends PageObject {
 
   Finder get _radioFinder => find.descendant(
         of: this,
-        matching: find.byWidgetPredicate(
-            (widget) => widget is Radio<T> || widget is RadioListTile<T>),
+        matching: find.byWidgetPredicate((widget) =>
+            widget is Radio<T> ||
+            widget is RadioListTile<T> ||
+            widget is CupertinoRadio<T>),
         matchRoot: true,
       );
 
@@ -48,7 +51,8 @@ class RadioGroupPageObject<T> extends PageObject {
         matching: find.byWidgetPredicate(
           (widget) =>
               (widget is Radio<T> && widget.value == value) ||
-              (widget is RadioListTile<T> && widget.value == value),
+              (widget is RadioListTile<T> && widget.value == value) ||
+              (widget is CupertinoRadio<T> && widget.value == value),
         ),
       )
       .first;
