@@ -1,3 +1,7 @@
+## 0.1.2+1
+
+* Rename `snackbar_page_object.dart` to `snack_bar_page_object.dart`.
+
 ## 0.1.2
 
 * Added `SnackBarPageObject`.
