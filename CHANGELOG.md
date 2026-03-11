@@ -1,3 +1,9 @@
+## 0.1.2
+
+* Added `SnackBarPageObject`.
+* Refactor `RadioGroupPageObject` to re-use `RadioPageObject`.
+* `ButtonPageObject` - support `RawMaterialButton`.
+
 ## 0.1.1
 
 * `RadioPageObject` - support `CupertinoRadio`.
