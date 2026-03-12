@@ -47,6 +47,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [BottomNavigationBarPageObject](lib/src/bottom_navigation_bar_page_object.dart) - For `BottomNavigationBar` widget.
  - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton` / `IconButton` / `CupertinoButton` / `FloatingActionButton`.
  - [CheckboxPageObject](lib/src/checkbox_page_object.dart) - For checkbox widgets such as `Checkbox` / `CheckboxListTile`.
+ - [DrawerPageObject](lib/src/drawer_page_object.dart) - For `Drawer` widget.
  - [DropdownPageObject](lib/src/dropdown_page_object.dart) - For dropdown widgets such as  `DropdownButton` / `DropdownButtonFormField`.
  - [NavButtonPageObject](lib/src/nav_button_page_object.dart) - For button widgets which navigate to another route.
  - [ProgressIndicatorPageObject](lib/src/progress_indicator_page_object.dart) - For `ProgressIndicator` widget.
