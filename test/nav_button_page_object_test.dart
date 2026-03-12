@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   NavButtonPageObject<_TargetPageObject> createPageObject(WidgetTester t) =>
@@ -87,17 +86,19 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: Builder(
-        builder: (context) => ElevatedButton(
-          key: aKey,
-          onPressed: () {
-            if (shouldNavigate) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => const Scaffold(key: _targetKey)));
-            }
-          },
-          child: const Text('Navigate'),
+    return MaterialApp(
+      home: Scaffold(
+        body: Builder(
+          builder: (context) => ElevatedButton(
+            key: aKey,
+            onPressed: () {
+              if (shouldNavigate) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const Scaffold(key: _targetKey)));
+              }
+            },
+            child: const Text('Navigate'),
+          ),
         ),
       ),
     );

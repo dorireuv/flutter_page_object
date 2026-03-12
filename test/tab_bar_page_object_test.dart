@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   TabBarPageObject createPageObject(WidgetTester t) =>
@@ -55,11 +54,13 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: DefaultTabController(
-        initialIndex: initialIndex,
-        length: length,
-        child: TabBar(key: aKey, tabs: _tabs()),
+    return MaterialApp(
+      home: Scaffold(
+        body: DefaultTabController(
+          initialIndex: initialIndex,
+          length: length,
+          child: TabBar(key: aKey, tabs: _tabs()),
+        ),
       ),
     );
   }

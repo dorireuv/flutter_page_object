@@ -4,7 +4,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
   radio(Radio.new),
@@ -117,9 +116,11 @@ class _WidgetState extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child:
-          Column(key: aKey, children: widget.values.map(_buildRadio).toList()),
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+            key: aKey, children: widget.values.map(_buildRadio).toList()),
+      ),
     );
   }
 

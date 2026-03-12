@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   SlidablePageObject createPageObject(WidgetTester t) =>
@@ -85,9 +84,9 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
+    return MaterialApp(
       locale: locale,
-      child: SizedBox(
+      home: SizedBox(
         width: 300,
         height: 300,
         child: PageView(

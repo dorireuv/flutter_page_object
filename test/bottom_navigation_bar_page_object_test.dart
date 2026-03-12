@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   BottomNavigationBarPageObject createPageObject(WidgetTester t) =>
@@ -86,8 +85,8 @@ class _WidgetState extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         body: Text('$_currentIndex', key: _keyByIndex(_currentIndex)),
         bottomNavigationBar: BottomNavigationBar(
           key: aKey,

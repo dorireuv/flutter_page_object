@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   TextPageObject createPageObject(WidgetTester t) =>
@@ -97,7 +96,7 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(child: Text(key: aKey, text));
+    return MaterialApp(home: Text(key: aKey, text));
   }
 }
 
@@ -108,7 +107,6 @@ class _TextSpan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-        child: Text.rich(key: aKey, TextSpan(text: text)));
+    return MaterialApp(home: Text.rich(key: aKey, TextSpan(text: text)));
   }
 }

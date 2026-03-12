@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   SliderPageObject createPageObject(WidgetTester t) =>
@@ -112,14 +111,17 @@ class _WidgetState extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: Slider(
-        key: aKey,
-        value: _value,
-        min: widget.min,
-        max: widget.max,
-        divisions: widget.divisions,
-        onChanged: widget.isEnabled ? (v) => setState(() => _value = v) : null,
+    return MaterialApp(
+      home: Scaffold(
+        body: Slider(
+          key: aKey,
+          value: _value,
+          min: widget.min,
+          max: widget.max,
+          divisions: widget.divisions,
+          onChanged:
+              widget.isEnabled ? (v) => setState(() => _value = v) : null,
+        ),
       ),
     );
   }

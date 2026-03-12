@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'localized_widget_wrapper_for_testing.dart';
-
 void main() {
   testWidgets('root --> finds target in the widget tree', (t) async {
     await t.pumpWidget(const _Widget());
@@ -96,15 +94,17 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: Column(
-        key: _widgetKey,
-        children: [
-          _button(key: _buttonKey),
-          _icon(iconData: _iconData),
-          _text(text: _text1),
-          _text(text: _text2),
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          key: _widgetKey,
+          children: [
+            _button(key: _buttonKey),
+            _icon(iconData: _iconData),
+            _text(text: _text1),
+            _text(text: _text2),
+          ],
+        ),
       ),
     );
   }

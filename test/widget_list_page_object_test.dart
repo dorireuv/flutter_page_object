@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   WidgetListPageObject<TextPageObject> createPageObject(WidgetTester t) =>
@@ -62,9 +61,9 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      key: aKey,
-      child: Column(
+    return MaterialApp(
+      home: Column(
+        key: aKey,
         children: items.map((item) => Text(item)).toList(),
       ),
     );

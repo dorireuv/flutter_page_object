@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'localized_widget_wrapper_for_testing.dart';
-
 void main() {
   _TestPageObject createPageObject(WidgetTester t) =>
       PageObjectFactory.root(t).test(_finder);
@@ -156,13 +154,15 @@ class _WidgetState extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: Column(
-        key: _widgetKey,
-        children: [
-          _button(),
-          if (_isTextVisible) _text(),
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          key: _widgetKey,
+          children: [
+            _button(),
+            if (_isTextVisible) _text(),
+          ],
+        ),
       ),
     );
   }

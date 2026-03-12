@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
   dropdownButton(DropdownButton.new),
@@ -264,7 +263,7 @@ class _WidgetState extends State<_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(child: _dropdown());
+    return MaterialApp(home: Scaffold(body: _dropdown()));
   }
 
   Widget _dropdown() {

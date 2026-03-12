@@ -4,7 +4,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 enum _Type {
   elevated(ElevatedButton.new),
@@ -27,8 +26,8 @@ void main() {
   }
 
   testWidgets('isEnabled unsupported widget --> throws', (t) async {
-    await t.pumpWidget(
-        const LocalizedWidgetWrapperForTesting(child: Column(key: aKey)));
+    await t
+        .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
     final pageObject = ButtonPageObject(t, aFinder);
     expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
   });
@@ -87,7 +86,7 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(child: _button());
+    return MaterialApp(home: Scaffold(body: _button()));
   }
 
   Widget _button() {

@@ -3,7 +3,6 @@ import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
-import 'localized_widget_wrapper_for_testing.dart';
 
 void main() {
   TextFormFieldPageObject<String> createStringPageObject(WidgetTester t) =>
@@ -109,11 +108,13 @@ class _Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocalizedWidgetWrapperForTesting(
-      child: TextFormField(
-        key: aKey,
-        initialValue: initialValue,
-        controller: controller,
+    return MaterialApp(
+      home: Scaffold(
+        body: TextFormField(
+          key: aKey,
+          initialValue: initialValue,
+          controller: controller,
+        ),
       ),
     );
   }
