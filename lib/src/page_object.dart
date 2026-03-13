@@ -76,9 +76,10 @@ abstract class PageObject extends Finder {
   }
 
   /// Gets the widget represented by this page object.
-  T widget<T extends Widget>() {
-    return t.widget<T>(this);
-  }
+  T widget<T extends Widget>() => t.widget<T>(this);
+
+  /// Gets the widget state represented by this page object.
+  T state<T extends State>() => t.state<T>(this);
 
   Future<void> _wait(bool Function() condition, String timeoutMessage,
       Duration timeout) async {

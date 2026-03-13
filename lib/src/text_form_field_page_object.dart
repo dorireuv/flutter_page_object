@@ -37,7 +37,7 @@ class TextFormFieldPageObject<T extends Object> extends PageObject {
         _parser = parser;
 
   /// Enters the given text into the text field and waits for the change to be
-  Future<void> setText(String v) => t.enterText(_textFormField, v);
+  Future<void> setText(String v) => t.enterText(this, v);
 
   /// Gets the current text value of the text field.
   String get textValue => _state.value!;
@@ -51,10 +51,7 @@ class TextFormFieldPageObject<T extends Object> extends PageObject {
   /// value of type [T].
   T? get value => _parser(textValue);
 
-  FormFieldState<String> get _state => t.state(_textFormField);
-
-  Finder get _textFormField => find.descendant(
-      of: this, matching: find.byType(TextFormField), matchRoot: true);
+  FormFieldState<String> get _state => state();
 }
 
 /// Extension on [PageObjectFactory] to create [TextFormFieldPageObject]s.
