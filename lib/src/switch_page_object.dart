@@ -45,7 +45,7 @@ class SwitchPageObject extends PageObject {
       return _SwitchWidget(w.value, w.onChanged);
     }
     throw TestFailure(
-        'SwitchPageObject does not support widget of type "${w.runtimeType}".');
+        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 

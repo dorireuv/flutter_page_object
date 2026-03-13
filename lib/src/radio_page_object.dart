@@ -62,12 +62,8 @@ class RadioPageObject<T> extends PageObject {
       );
     }
 
-    throw _testFailure(w);
-  }
-
-  static TestFailure _testFailure(Widget widget) {
-    return TestFailure(
-        'RadioPageObject does not support widget of type "${widget.runtimeType}".');
+    throw TestFailure(
+        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 

@@ -30,7 +30,7 @@ class ButtonPageObject extends PageObject {
     }
 
     throw TestFailure(
-        'ButtonPageObject does not support widget of type "${w.runtimeType}".');
+        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 
   /// Whether the button is disabled.

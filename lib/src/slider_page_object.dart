@@ -35,10 +35,7 @@ class SliderPageObject extends PageObject {
     await t.pump();
   }
 
-  Slider get _widget => t.widget<Slider>(_sliderFinder);
-
-  Finder get _sliderFinder =>
-      find.descendant(of: this, matching: find.byType(Slider), matchRoot: true);
+  Slider get _widget => widget<Slider>();
 }
 
 /// Extension on [PageObjectFactory] to create [SliderPageObject]s.
