@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'page_object.dart';
+import 'page_object_factory.dart';
+import 'radio_page_object.dart';
 
 /// A page object representing a group of [Radio] widgets.
 class RadioGroupPageObject<T> extends PageObject {

@@ -1,5 +1,9 @@
-import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'button_page_object.dart';
+import 'page_object.dart';
+import 'page_object_builder.dart';
+import 'page_object_factory.dart';
 
 /// A page object representing a button that navigates to another page object
 /// when tapped.
