@@ -1,3 +1,7 @@
+## 0.1.3+1
+
+* Documentation updates.
+
 ## 0.1.3
 
 * Added `ChipPageObject`.

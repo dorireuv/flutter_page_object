@@ -25,8 +25,8 @@ While the page object will look like [this](example/test_common/lib/login_page_o
 
 ```dart
 class LoginPageObject extends PageObject {
-  late final username = d.byKey.stringTextFormField(const Key('username'));
-  late final password = d.byKey.stringTextFormField(const Key('password'));
+  late final username = d.byKey.textFormField(const Key('username'));
+  late final password = d.byKey.textFormField(const Key('password'));
   late final loginButton =
       d.byKey.navButton(const Key('login_button'), HomePageObject(t));
 
