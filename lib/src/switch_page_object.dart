@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,14 +35,29 @@ class SwitchPageObject extends PageObject {
     }
   }
 
-  Switch get _switchWidget => t.widget<Switch>(_switchFinder);
-
-  Finder get _switchFinder =>
-      find.descendant(of: this, matching: find.byType(Switch), matchRoot: true);
+  _SwitchWidget get _switchWidget {
+    final w = widget();
+    if (w is Switch) {
+      return _SwitchWidget(w.value, w.onChanged);
+    } else if (w is SwitchListTile) {
+      return _SwitchWidget(w.value, w.onChanged);
+    } else if (w is CupertinoSwitch) {
+      return _SwitchWidget(w.value, w.onChanged);
+    }
+    throw TestFailure(
+        'SwitchPageObject does not support widget of type "${w.runtimeType}".');
+  }
 }
 
 /// Extension on [PageObjectFactory] to create [SwitchPageObject]s.
 extension SwitchPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [SwitchPageObject] with the given [key].
   SwitchPageObject switch_(K key) => create(SwitchPageObject.new, key);
+}
+
+class _SwitchWidget {
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+
+  _SwitchWidget(this.value, this.onChanged);
 }

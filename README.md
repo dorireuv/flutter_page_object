@@ -58,7 +58,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [SlidablePageObject](lib/src/slidable_page_object.dart) - For slidable widgets such as `PageView` / `TabView`. There is `IsSlidable` mixin if your page object is slidable.
  - [SliderPageObject](lib/src/slider_page_object.dart) - For `Slider` widget.
  - [SnackBarPageObject](lib/src/snack_bar_page_object.dart) - For `SnackBar` widget.
- - [SwitchPageObject](lib/src/switch_page_object.dart) - For switch widgets such as `Switch` / `SwitchListTile`.
+ - [SwitchPageObject](lib/src/switch_page_object.dart) - For switch widgets such as `Switch` / `SwitchListTile` / `CupertinoSwitch`.
  - [TabBarPageObject](lib/src/tab_bar_page_object.dart) - For `TabBar` widget.
  - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
  - [TextPageObject](lib/src/text_page_object.dart) - For `Text` widget.

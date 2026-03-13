@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,6 +8,7 @@ import 'common.dart';
 enum _Type {
   switchWidget(Switch.new),
   switchListTile(SwitchListTile.new),
+  cupertinoSwitch(CupertinoSwitch.new),
   ;
 
   final _Constructor constructor;
@@ -18,6 +20,13 @@ void main() {
   for (final type in _Type.values) {
     group('$type', () => _SwitchTest(type).runTests());
   }
+
+  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+    await t
+        .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
+    final pageObject = SwitchPageObject(t, aFinder);
+    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+  });
 }
 
 class _SwitchTest {
