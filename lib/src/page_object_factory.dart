@@ -62,8 +62,19 @@ extension PageObjectFactoryFinderExtension on PageObjectFactory<Finder> {
   /// A factory that creates page objects by finding widgets by type.
   PageObjectFactory<Type> get byType => map((type) => find.byType(type));
 
+  /// A factory that creates page objects by finding widgets by exact text.
+  PageObjectFactory<String> get byText => map((text) => find.text(text));
+
   /// A factory that creates page objects by finding widgets by text containing
   /// a given string.
-  PageObjectFactory<String> get textContaining =>
+  PageObjectFactory<String> get byTextContaining =>
       map((text) => find.textContaining(text));
+
+  /// A factory that creates page objects by finding widgets by tooltip.
+  PageObjectFactory<String> get byTooltip =>
+      map((tooltip) => find.byTooltip(tooltip));
+
+  /// A factory that creates page objects by finding widgets by semantics label.
+  PageObjectFactory<Pattern> get bySemanticsLabel =>
+      map((label) => find.bySemanticsLabel(label));
 }

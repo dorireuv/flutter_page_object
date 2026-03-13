@@ -50,7 +50,7 @@ void main() {
   });
 
   group('PageObjectFactoryFinderExtension', () {
-    testWidgets('byKey finds by Key', (t) async {
+    testWidgets('byKey', (t) async {
       await t.pumpWidget(const _Widget());
       final factory = PageObjectFactory.root(t);
 
@@ -59,7 +59,7 @@ void main() {
       expect(pageObject, findsOne);
     });
 
-    testWidgets('byIcon finds by IconData', (t) async {
+    testWidgets('byIcon', (t) async {
       await t.pumpWidget(const _Widget());
       final factory = PageObjectFactory.root(t);
 
@@ -68,7 +68,7 @@ void main() {
       expect(pageObject, findsOne);
     });
 
-    testWidgets('byType finds by Type', (t) async {
+    testWidgets('byType', (t) async {
       await t.pumpWidget(const _Widget());
       final factory = PageObjectFactory.root(t);
 
@@ -77,14 +77,43 @@ void main() {
       expect(pageObject, findsNWidgets(2));
     });
 
-    testWidgets('textContaining finds by text', (t) async {
+    testWidgets('byText', (t) async {
+      await t.pumpWidget(const _Widget());
+      final factory = PageObjectFactory.root(t);
+
+      final pageObject = factory.byText.create(WidgetPageObject.new, _text1);
+
+      expect(pageObject, findsOne);
+    });
+
+    testWidgets('byTextContaining', (t) async {
       await t.pumpWidget(const _Widget());
       final factory = PageObjectFactory.root(t);
 
       final pageObject =
-          factory.textContaining.create(WidgetPageObject.new, 'text');
+          factory.byTextContaining.create(WidgetPageObject.new, _text);
 
       expect(pageObject, findsNWidgets(2));
+    });
+
+    testWidgets('byTooltip', (t) async {
+      await t.pumpWidget(const _Widget());
+      final factory = PageObjectFactory.root(t);
+
+      final pageObject =
+          factory.byTooltip.create(WidgetPageObject.new, _tooltipMessage);
+
+      expect(pageObject, findsOne);
+    });
+
+    testWidgets('bySemanticsLabel', (t) async {
+      await t.pumpWidget(const _Widget());
+      final factory = PageObjectFactory.root(t);
+
+      final pageObject = factory.bySemanticsLabel
+          .create(WidgetPageObject.new, _sematicLabelText);
+
+      expect(pageObject, findsOne);
     });
   });
 }
@@ -103,6 +132,7 @@ class _Widget extends StatelessWidget {
             _icon(iconData: _iconData),
             _text(text: _text1),
             _text(text: _text2),
+            _tooltip(),
           ],
         ),
       ),
@@ -117,9 +147,13 @@ class _Widget extends StatelessWidget {
     );
   }
 
-  Widget _icon({required IconData iconData}) => Icon(iconData);
+  Widget _icon({required IconData iconData}) =>
+      Icon(iconData, semanticLabel: _sematicLabelText);
 
   Widget _text({required String text}) => Text(text);
+
+  Widget _tooltip() =>
+      const Tooltip(message: _tooltipMessage, child: SizedBox.shrink());
 }
 
 const _widgetKey = Key('key');
@@ -127,5 +161,8 @@ final _finder = find.byKey(_widgetKey);
 
 const _buttonKey = Key('button');
 const _iconData = Icons.widgets;
-const _text1 = 'text1';
-const _text2 = 'text2';
+const _text = 'text';
+const _text1 = '${_text}1';
+const _text2 = '${_text}2';
+const _tooltipMessage = 'message';
+const _sematicLabelText = 'semantic label';
