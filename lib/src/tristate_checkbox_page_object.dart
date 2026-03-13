@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,6 +13,9 @@ class TristateCheckboxPageObject extends PageObject {
 
   /// Gets whether the checkbox is disabled.
   bool get isDisabled => _checkboxWidget.onChanged == null;
+
+  /// Whether the checkbox is enabled (i.e. can be tapped).
+  bool get isEnabled => !isDisabled;
 
   /// Gets the current value of the checkbox, which can be `true`, `false`,
   /// or `null` (indeterminate).
@@ -39,14 +43,18 @@ class TristateCheckboxPageObject extends PageObject {
     }
   }
 
-  Checkbox get _checkboxWidget {
-    final checkbox = t.widget<Checkbox>(_checkboxFinder);
-    assert(checkbox.tristate);
-    return checkbox;
+  _CheckboxWidget get _checkboxWidget {
+    final w = widget();
+    if (w is Checkbox) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    } else if (w is CheckboxListTile) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    } else if (w is CupertinoCheckbox) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    }
+    throw TestFailure(
+        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
-
-  Finder get _checkboxFinder => find.descendant(
-      of: finder, matching: find.byType(Checkbox), matchRoot: true);
 }
 
 /// Extension on [PageObjectFactory] to create [TristateCheckboxPageObject]s.
@@ -55,4 +63,13 @@ extension TristateCheckboxPageObjectFactoryExtension<K>
   /// Creates a [TristateCheckboxPageObject] with the given [key].
   TristateCheckboxPageObject tristateCheckbox(K key) =>
       create(TristateCheckboxPageObject.new, key);
+}
+
+class _CheckboxWidget {
+  final bool? value;
+  final ValueChanged<bool>? onChanged;
+
+  _CheckboxWidget(this.value, this.onChanged, bool tristate) {
+    assert(tristate);
+  }
 }
