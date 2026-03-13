@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -17,7 +18,7 @@ class CheckboxPageObject extends PageObject {
   bool get isEnabled => !isDisabled;
 
   /// Whether the checkbox is checked.
-  bool get value => _checkboxWidget.value!;
+  bool get value => _checkboxWidget.value;
 
   /// Checks the checkbox if it is not already checked.
   Future<void> check() => set(true);
@@ -34,18 +35,34 @@ class CheckboxPageObject extends PageObject {
     }
   }
 
-  Checkbox get _checkboxWidget {
-    final checkbox = t.widget<Checkbox>(_checkboxFinder);
-    assert(!checkbox.tristate);
-    return checkbox;
+  _CheckboxWidget get _checkboxWidget {
+    final w = widget();
+    if (w is Checkbox) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    } else if (w is CheckboxListTile) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    } else if (w is CupertinoCheckbox) {
+      return _CheckboxWidget(w.value, w.onChanged, w.tristate);
+    }
+    throw TestFailure(
+        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
-
-  Finder get _checkboxFinder => find.descendant(
-      of: this, matching: find.byType(Checkbox), matchRoot: true);
 }
 
 /// Extension on [PageObjectFactory] to create [CheckboxPageObject]s.
 extension CheckboxPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [CheckboxPageObject] with the given [key].
   CheckboxPageObject checkbox(K key) => create(CheckboxPageObject.new, key);
+}
+
+class _CheckboxWidget {
+  final bool? _value;
+  final ValueChanged<bool>? onChanged;
+
+  _CheckboxWidget(this._value, this.onChanged, bool tristate) {
+    assert(!tristate);
+    assert(_value != null);
+  }
+
+  bool get value => _value!;
 }
