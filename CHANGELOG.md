@@ -1,3 +1,14 @@
+## 0.1.3
+
+* Added `ChipPageObject`.
+* Added `DrawerPageObject`.
+* Added `ImagePageObject`.
+* Added `TextFieldPageObject`.
+* `PageObject` - add `longPress`, `state` methods.
+* `PageObjectFactory` - add byTooltip, byText, byTextContaining.
+* `SwitchPageObject` - support `CupertinoSwitch`.
+* `CheckboxPageObject` / `TristateCheckboxPageObject` - support `CupertinoCheckbox`.
+
 ## 0.1.2+1
 
 * Rename `snackbar_page_object.dart` to `snack_bar_page_object.dart`.
