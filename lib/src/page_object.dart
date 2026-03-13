@@ -33,7 +33,7 @@ abstract class PageObject extends Finder {
   late final root = PageObjectFactory.root(t);
 
   /// Accesses page objects which are descendants of this page object.
-  late final descendantOf = PageObjectFactory.descendantOf(t, this);
+  late final descendant = PageObjectFactory.descendant(t, this);
 
   /// Taps the page object.
   Future<void> tap({bool warnIfMissed = true}) =>
@@ -104,5 +104,5 @@ extension PageObjectFactoryShorthandExtension on PageObject {
 
   /// Shorthand for accessing page objects which are descendants of this page
   /// object.
-  PageObjectFactory<Finder> get d => descendantOf;
+  PageObjectFactory<Finder> get d => descendant;
 }

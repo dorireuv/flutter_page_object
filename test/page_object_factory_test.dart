@@ -9,9 +9,9 @@ void main() {
     expect(factory.byType.widget(MaterialApp), findsOne);
   });
 
-  testWidgets('descendantOf --> finds only descendants targets', (t) async {
+  testWidgets('descendant --> finds only descendants targets', (t) async {
     await t.pumpWidget(const _Widget());
-    final factory = PageObjectFactory.descendantOf(t, _finder);
+    final factory = PageObjectFactory.descendant(t, _finder);
     expect(factory.byKey.widget(_buttonKey), findsOne);
     expect(factory.byType.widget(MaterialApp), findsNothing);
   });

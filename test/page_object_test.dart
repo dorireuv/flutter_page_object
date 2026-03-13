@@ -23,7 +23,7 @@ void main() {
     expect(pageObject.r.byType.widget(MaterialApp), findsOne);
   });
 
-  testWidgets('d=descendantOf finds only descendants', (t) async {
+  testWidgets('d=descendant finds only descendants', (t) async {
     await t.pumpWidget(const _Widget());
     final pageObject = createPageObject(t);
 

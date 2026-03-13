@@ -20,8 +20,7 @@ final class PageObjectFactory<K> {
 
   /// Creates a [PageObjectFactory] that is looking for widgets that are
   /// descendants of a given [ancestor].
-  static PageObjectFactory<Finder> descendantOf(
-      WidgetTester t, Finder ancestor) {
+  static PageObjectFactory<Finder> descendant(WidgetTester t, Finder ancestor) {
     return PageObjectFactory._(
       t,
       (f) => find.descendant(of: ancestor, matching: f, matchRoot: true),
