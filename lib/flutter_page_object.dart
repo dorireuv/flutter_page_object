@@ -7,6 +7,7 @@ export 'src/button_page_object.dart';
 export 'src/checkbox_page_object.dart';
 export 'src/drawer_page_object.dart';
 export 'src/dropdown_page_object.dart';
+export 'src/image_page_object.dart';
 export 'src/nav_button_page_object.dart';
 export 'src/page_object.dart';
 export 'src/page_object_builder.dart';
