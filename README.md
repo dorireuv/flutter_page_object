@@ -61,6 +61,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [SnackBarPageObject](lib/src/snack_bar_page_object.dart) - For `SnackBar` widget.
  - [SwitchPageObject](lib/src/switch_page_object.dart) - For switch widgets such as `Switch` / `SwitchListTile` / `CupertinoSwitch`.
  - [TabBarPageObject](lib/src/tab_bar_page_object.dart) - For `TabBar` widget.
+ - [TextFieldPageObject](lib/src/text_field_page_object.dart) - For `TextField` widget.
  - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
  - [TextPageObject](lib/src/text_page_object.dart) - For `Text` widget.
  - [TristateCheckboxPageObject](lib/src/tristate_checkbox_page_object.dart) - For checkbox widgets which are in tristate mode such as `Checkbox` / `CheckboxListTile` / `CupertinoCheckbox`.
