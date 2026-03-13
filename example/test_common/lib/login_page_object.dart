@@ -6,8 +6,8 @@ import 'package:test_common/home_page_object.dart';
 final _finder = find.byKey(const Key('login_page'));
 
 class LoginPageObject extends PageObject {
-  late final username = d.byKey.stringTextFormField(const Key('username'));
-  late final password = d.byKey.stringTextFormField(const Key('password'));
+  late final username = d.byKey.textFormField(const Key('username'));
+  late final password = d.byKey.textFormField(const Key('password'));
   late final loginButton =
       d.byKey.navButton(const Key('login_button'), HomePageObject(t));
 
