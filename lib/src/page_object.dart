@@ -51,6 +51,22 @@ abstract class PageObject extends Finder {
     await t.pumpAndSettle();
   }
 
+  /// Long presses the page object.
+  Future<void> longPress({bool warnIfMissed = true}) =>
+      t.longPress(this, warnIfMissed: warnIfMissed);
+
+  /// Long presses the page object and pumps the widget tree.
+  Future<void> longPressAndPump({bool warnIfMissed = true}) async {
+    await longPress(warnIfMissed: warnIfMissed);
+    await t.pump();
+  }
+
+  /// Long presses the page object and pumps the widget tree until it settles.
+  Future<void> longPressAndSettle({bool warnIfMissed = true}) async {
+    await longPress(warnIfMissed: warnIfMissed);
+    await t.pumpAndSettle();
+  }
+
   /// Waits until the page object is shown on the screen.
   ///
   /// Throws if it is not shown after the given [timeout].

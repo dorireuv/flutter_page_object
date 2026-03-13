@@ -59,6 +59,36 @@ void main() {
     expect(pageObject.text, findsOne);
   });
 
+  testWidgets('longPress --> long presses', (t) async {
+    await t.pumpWidget(const _Widget());
+    final pageObject = createPageObject(t);
+
+    await pageObject.button.longPress();
+    await t.pump();
+
+    expect(pageObject.text, findsOne);
+  });
+
+  testWidgets('longPressAndPump --> long presses and pumps the widget tree',
+      (t) async {
+    await t.pumpWidget(const _Widget());
+    final pageObject = createPageObject(t);
+
+    await pageObject.button.longPressAndPump();
+
+    expect(pageObject.text, findsOne);
+  });
+
+  testWidgets('longPressAndSettle --> long presses and settles the widget tree',
+      (t) async {
+    await t.pumpWidget(const _Widget());
+    final pageObject = createPageObject(t);
+
+    await pageObject.button.longPressAndSettle();
+
+    expect(pageObject.text, findsOne);
+  });
+
   group('waitUntilShown', () {
     testWidgets('waits until the widget is shown', (t) async {
       await t.pumpWidget(const _Widget());
@@ -174,6 +204,9 @@ class _WidgetState extends State<_Widget> {
     return ElevatedButton(
       key: _buttonKey,
       onPressed: () {
+        setState(() => _isTextVisible = !_isTextVisible);
+      },
+      onLongPress: () {
         setState(() => _isTextVisible = !_isTextVisible);
       },
       child: const Text('tap'),
