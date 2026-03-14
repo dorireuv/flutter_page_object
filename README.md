@@ -5,39 +5,33 @@ Flutter library allowing to write page objects for your application using the [P
 ## Usage
 See [example](example) for a complete example.
 
-Your tests will look like [this](example/test/login_page_test.dart):
+Let's take a look on an example of a login page in your app.
 
+You can create a `LoginPageObject` which will look like [this](example/test_common/lib/login_page_object.dart):
+```dart
+class LoginPageObject extends PageObject {
+  late final username = d.textFormField(_usernameFinder);
+  late final password = d.textFormField(_passwordFinder);
+  late final loginButton = d.navButton(_loginButtonFinder, HomePageObject.new);
+
+  LoginPageObject(WidgetTester t) : super(t, _finder);
+}
+```
+
+While your tests will look like [this](example/test/login_page_test.dart):
 ```dart
 testWidgets('form completed and tap login button --> navigates to home page', (t) async {
   await t.pumpWidget(const MaterialApp(home: LoginPage()));
   final loginPage = LoginPageObject(t);
 
-  await loginPage.completeForm();
-  expect(loginPage.loginButton.isEnabled, isTrue);
+  await loginPage.username.setText('username');
+  await loginPage.password.setText('password');
+  await t.pump();
   final homePage = await loginPage.loginButton.tapNavAndSettle();
 
   expect(homePage, findsOne);
   expect(homePage.greetingText, findsOne);
 });
-```
-
-While the page object will look like [this](example/test_common/lib/login_page_object.dart):
-
-```dart
-class LoginPageObject extends PageObject {
-  late final username = d.byKey.textFormField(const Key('username'));
-  late final password = d.byKey.textFormField(const Key('password'));
-  late final loginButton =
-      d.byKey.navButton(const Key('login_button'), HomePageObject(t));
-
-  LoginPageObject(WidgetTester t) : super(t, _finder);
-
-  Future<void> completeForm() async {
-    await username.setText('username');
-    await password.setText('password');
-    await t.pump();
-  }
-}
 ```
 
 ## Creating your own page object
