@@ -1,3 +1,8 @@
+## 0.1.4
+
+* `NavButtonPageObject` - use `targetBuilder` instead of `target`.
+* Documentation updates.
+
 ## 0.1.3+1
 
 * Documentation updates.
