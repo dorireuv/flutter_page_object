@@ -11,14 +11,15 @@ class NavButtonPageObject<T extends PageObject> extends ButtonPageObject {
   /// Creates a [NavButtonPageObject] with the given [finder] and
   /// [target].
   static PageObjectBuilder<NavButtonPageObject<T>>
-      builder<T extends PageObject>(T target) =>
-          (t, finder) => NavButtonPageObject(t, finder, target);
+      builder<T extends PageObject>(PageObjectStaticBuilder<T> targetBuilder) =>
+          (t, finder) => NavButtonPageObject(t, finder, targetBuilder);
 
-  final T _target;
+  final PageObjectStaticBuilder<T> _targetBuilder;
+  late final _target = _targetBuilder(t);
 
   /// Creates a [NavButtonPageObject] with the given [finder] and
-  /// [_target].
-  NavButtonPageObject(super.t, super.finder, this._target);
+  /// [_targetBuilder].
+  NavButtonPageObject(super.t, super.finder, this._targetBuilder);
 
   /// Taps the button and waits for the target page object to be found.
   Future<T> tapNav({bool expectTarget = true}) async {
@@ -53,6 +54,7 @@ class NavButtonPageObject<T extends PageObject> extends ButtonPageObject {
 /// Extension on [PageObjectFactory] to create [NavButtonPageObject]s.
 extension NavButtonPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [NavButtonPageObject] with the given [key] and [target].
-  NavButtonPageObject<T> navButton<T extends PageObject>(K key, T target) =>
-      create(NavButtonPageObject.builder<T>(target), key);
+  NavButtonPageObject<T> navButton<T extends PageObject>(
+          K key, PageObjectStaticBuilder<T> targetBuilder) =>
+      create(NavButtonPageObject.builder<T>(targetBuilder), key);
 }
