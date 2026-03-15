@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_page_object/src/check.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'check.dart';
 import 'page_object.dart';
 import 'page_object_factory.dart';
 
