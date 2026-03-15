@@ -1,12 +1,11 @@
-import 'package:example/login_page.dart';
-import 'package:flutter/material.dart';
+import 'package:example/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_common/login_page_object.dart';
 
 void main() {
   testWidgets('form completed and tap login button --> navigates to home page',
       (t) async {
-    await t.pumpWidget(const MaterialApp(home: LoginPage()));
+    await t.pumpWidget(const App());
     final loginPage = LoginPageObject(t);
 
     await loginPage.completeForm();
@@ -18,7 +17,7 @@ void main() {
   });
 
   testWidgets('username is empty --> login button disabled', (t) async {
-    await t.pumpWidget(const MaterialApp(home: LoginPage()));
+    await t.pumpWidget(const App());
     final loginPage = LoginPageObject(t);
     await loginPage.completeForm();
 
@@ -29,7 +28,7 @@ void main() {
   });
 
   testWidgets('password is empty --> login button disabled', (t) async {
-    await t.pumpWidget(const MaterialApp(home: LoginPage()));
+    await t.pumpWidget(const App());
     final loginPage = LoginPageObject(t);
     await loginPage.completeForm();
 

@@ -21,7 +21,7 @@ class LoginPageObject extends PageObject {
 While your tests will look like [this](example/test/login_page_test.dart):
 ```dart
 testWidgets('form completed and tap login button --> navigates to home page', (t) async {
-  await t.pumpWidget(const MaterialApp(home: LoginPage()));
+  await t.pumpWidget(const App());
   final loginPage = LoginPageObject(t);
 
   await loginPage.username.setText('username');
