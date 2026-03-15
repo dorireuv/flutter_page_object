@@ -1,3 +1,9 @@
+## 0.1.5
+
+* `TextFormFieldPageObject` - add custom text form field support.
+* `TextFieldPageObject` - add custom text field support.
+* Documentation updates.
+
 ## 0.1.4
 
 * `NavButtonPageObject` - use `targetBuilder` instead of `target`.
