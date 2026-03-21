@@ -27,6 +27,13 @@ void main() {
     final pageObject = CheckboxPageObject(t, aFinder);
     expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
   });
+
+  testWidgets('wrapped widget --> finds', (t) async {
+    await t.pumpWidget(
+        const Center(child: _Widget(type: _Type.checkbox, isEnabled: true)));
+    final pageObject = CheckboxPageObject(t, find.byType(Center));
+    expect(pageObject.isEnabled, isTrue);
+  });
 }
 
 class _CheckboxTest {

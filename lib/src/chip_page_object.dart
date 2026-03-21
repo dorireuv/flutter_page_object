@@ -36,7 +36,12 @@ class ChipPageObject extends PageObject {
   }
 
   _ChipWidget get _chipWidget {
-    final w = widget<Widget>();
+    final w = descendantWidgetMatchingOrRoot((w) =>
+        w is ChoiceChip ||
+        w is FilterChip ||
+        w is InputChip ||
+        w is ActionChip ||
+        w is RawChip);
     if (w is ChoiceChip) {
       return _ChipWidget(selected: w.selected, isEnabled: w.onSelected != null);
     } else if (w is FilterChip) {

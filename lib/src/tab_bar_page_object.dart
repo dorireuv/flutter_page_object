@@ -24,7 +24,7 @@ class TabBarPageObject extends PageObject {
   TabController get _tabController =>
       _tabBar.controller ?? DefaultTabController.of(finder.evaluate().first);
 
-  TabBar get _tabBar => widget<TabBar>();
+  TabBar get _tabBar => descendantWidgetMatchingType<TabBar>();
 }
 
 /// Extension on [PageObjectFactory] to create [TabBarPageObject]s.

@@ -14,7 +14,13 @@ class ButtonPageObject extends PageObject {
   bool get isEnabled => _buttonWidget.onPressed != null;
 
   _ButtonWidget get _buttonWidget {
-    final w = widget<Widget>();
+    final w = descendantWidgetMatchingOrRoot((w) =>
+        w is ButtonStyleButton ||
+        w is IconButton ||
+        w is MaterialButton ||
+        w is CupertinoButton ||
+        w is FloatingActionButton ||
+        w is RawMaterialButton);
     if (w is ButtonStyleButton) {
       return _ButtonWidget(w.onPressed);
     } else if (w is IconButton) {

@@ -36,7 +36,8 @@ class SwitchPageObject extends PageObject {
   }
 
   _SwitchWidget get _switchWidget {
-    final w = widget();
+    final w = descendantWidgetMatchingOrRoot(
+        (w) => w is Switch || w is SwitchListTile || w is CupertinoSwitch);
     if (w is Switch) {
       return _SwitchWidget(w.value, w.onChanged);
     } else if (w is SwitchListTile) {

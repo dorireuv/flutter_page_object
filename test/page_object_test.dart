@@ -159,6 +159,125 @@ void main() {
       );
     });
   });
+
+  group('descendantWidgetMatchingType', () {
+    testWidgets('root matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget = pageObject.descendantWidgetMatchingType<Column>();
+
+      expect(widget, isA<Column>());
+    });
+
+    testWidgets('descendant matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget = pageObject.descendantWidgetMatchingType<ElevatedButton>();
+
+      expect(widget, isA<ElevatedButton>());
+    });
+
+    testWidgets('no matches --> throws', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+      expect(() => pageObject.descendantWidgetMatchingType<Checkbox>(),
+          throwsA(isA<TestFailure>()));
+    });
+  });
+
+  group('descendantWidgetMatching', () {
+    testWidgets('root matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatching((w) => w is Column, 'Column');
+
+      expect(widget, isA<Column>());
+    });
+
+    testWidgets('descendant matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget = pageObject.descendantWidgetMatching(
+          (w) => w is ElevatedButton, 'ElevatedButton');
+
+      expect(widget, isA<ElevatedButton>());
+    });
+
+    testWidgets('no matches --> throws', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+      expect(
+          () => pageObject.descendantWidgetMatching(
+              (w) => w is Checkbox, 'Checkbox'),
+          throwsA(isA<TestFailure>()));
+    });
+  });
+
+  group('descendantWidgetMatchingOrNull', () {
+    testWidgets('root matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatchingOrNull((w) => w is Column);
+
+      expect(widget, isA<Column>());
+    });
+
+    testWidgets('descendant matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatchingOrNull((w) => w is ElevatedButton);
+
+      expect(widget, isA<ElevatedButton>());
+    });
+
+    testWidgets('no matches --> throws', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+      expect(pageObject.descendantWidgetMatchingOrNull((w) => w is Checkbox),
+          isNull);
+    });
+  });
+
+  group('descendantWidgetMatchingOrRoot', () {
+    testWidgets('root matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatchingOrRoot((w) => w is Column);
+
+      expect(widget, isA<Column>());
+    });
+
+    testWidgets('descendant matches --> returns', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatchingOrRoot((w) => w is ElevatedButton);
+
+      expect(widget, isA<ElevatedButton>());
+    });
+
+    testWidgets('no matches --> root', (t) async {
+      await t.pumpWidget(const _Widget());
+      final pageObject = createPageObject(t);
+
+      final widget =
+          pageObject.descendantWidgetMatchingOrRoot((w) => w is Checkbox);
+
+      expect(widget, isA<Column>());
+    });
+  });
 }
 
 class _TestPageObject extends PageObject {

@@ -35,7 +35,8 @@ class RadioPageObject<T> extends PageObject {
   Function(T?)? get _onChanged => _radioWidget.onChanged;
 
   _RadioWidget<T> get _radioWidget {
-    final w = widget();
+    final w = descendantWidgetMatchingOrRoot((w) =>
+        w is Radio<T> || w is RadioListTile<T> || w is CupertinoRadio<T>);
     if (w is RadioListTile<T>) {
       return _RadioWidget(
         w.value,

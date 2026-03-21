@@ -44,7 +44,8 @@ class TristateCheckboxPageObject extends PageObject {
   }
 
   _CheckboxWidget get _checkboxWidget {
-    final w = widget();
+    final w = descendantWidgetMatchingOrRoot((w) =>
+        w is Checkbox || w is CheckboxListTile || w is CupertinoCheckbox);
     if (w is Checkbox) {
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
     } else if (w is CheckboxListTile) {

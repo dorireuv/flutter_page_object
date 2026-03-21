@@ -14,7 +14,7 @@ class ImagePageObject extends PageObject {
   /// Gets the semantic label of the image.
   String? get semanticLabel => _widget.semanticLabel;
 
-  Image get _widget => widget<Image>();
+  Image get _widget => descendantWidgetMatchingType<Image>();
 }
 
 /// Extension on [PageObjectFactory] to create [ImagePageObject]s.

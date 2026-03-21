@@ -13,7 +13,8 @@ class ProgressIndicatorPageObject extends PageObject {
   /// Returns `null` if the progress indicator is indeterminate.
   double? get value => _widget.value;
 
-  ProgressIndicator get _widget => widget<ProgressIndicator>();
+  ProgressIndicator get _widget =>
+      descendantWidgetMatchingType<ProgressIndicator>();
 }
 
 /// Extension on [PageObjectFactory] to create [ProgressIndicatorPageObject]s.

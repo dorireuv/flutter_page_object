@@ -34,7 +34,7 @@ class TextFieldPageObject<T extends Object> extends PageObject {
 
   /// Gets the current text value of the text field.
   String get textValue {
-    final w = widget<TextField>();
+    final w = descendantWidgetMatchingType<TextField>();
     if (w.controller != null) {
       return w.controller!.text;
     }

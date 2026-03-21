@@ -35,7 +35,7 @@ class SliderPageObject extends PageObject {
     await t.pump();
   }
 
-  Slider get _widget => widget<Slider>();
+  Slider get _widget => descendantWidgetMatchingType<Slider>();
 }
 
 /// Extension on [PageObjectFactory] to create [SliderPageObject]s.
