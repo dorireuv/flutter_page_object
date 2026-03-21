@@ -1,3 +1,7 @@
+## 0.1.7
+
+* Allow widget specific page objects to search for their widget in their descendants - take 2.
+
 ## 0.1.6
 
 * Allow widget specific page objects to search for their widget in their descendants.
