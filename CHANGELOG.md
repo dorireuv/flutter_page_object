@@ -1,3 +1,7 @@
+## 0.1.6
+
+* Allow widget specific page objects to search for their widget in their descendants.
+
 ## 0.1.5
 
 * `TextFormFieldPageObject` - add custom text form field support.
