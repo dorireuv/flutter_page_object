@@ -21,11 +21,11 @@ void main() {
     group('$type', () => _TristateCheckboxTest(type).runTests());
   }
 
-  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+  testWidgets('unsupported widget --> throws', (t) async {
     await t
         .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
     final pageObject = TristateCheckboxPageObject(t, aFinder);
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 }
 
@@ -41,6 +41,34 @@ class _TristateCheckboxTest {
       _Widget(type: type, value: value, isEnabled: isEnabled);
 
   void runTests() {
+    group('isEnabled', () {
+      testWidgets('disabled --> false', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: false));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isEnabled, isFalse);
+      });
+
+      testWidgets('enabled --> true', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: true));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isEnabled, isTrue);
+      });
+    });
+
+    group('isDisabled', () {
+      testWidgets('disabled --> true', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: false));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isDisabled, isTrue);
+      });
+
+      testWidgets('enabled --> false', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: true));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isDisabled, isFalse);
+      });
+    });
+
     group('value', () {
       testWidgets('checked --> true', (t) async {
         await t.pumpWidget(createWidget(value: true));

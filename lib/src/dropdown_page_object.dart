@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';
@@ -9,14 +10,16 @@ import 'page_object_factory.dart';
 /// widget.
 class DropdownPageObject<T> extends PageObject {
   /// Creates a [DropdownPageObject] with the given [finder].
-  DropdownPageObject(super.t, super.finder);
+  DropdownPageObject(WidgetTester t, Finder finder)
+      : super(
+            t,
+            finder
+                .firstDescendantWidgetMatching((w) => w is DropdownButton<T>));
 
   /// Returns true if the dropdown is disabled.
   bool get isDisabled {
-    final widget = _dropdownButtonWidget;
-    return widget.onChanged == null ||
-        widget.items == null ||
-        widget.items!.isEmpty;
+    final w = _widget;
+    return w.onChanged == null || w.items == null || w.items!.isEmpty;
   }
 
   /// Returns true if the dropdown is enabled.
@@ -24,7 +27,7 @@ class DropdownPageObject<T> extends PageObject {
 
   /// Gets the currently selected value in the dropdown, or `null` if no value
   /// is selected.
-  T? get value => _dropdownButtonWidget.value;
+  T? get value => _widget.value;
 
   /// Selects the given value in the dropdown.
   Future<void> select(T? v) async {
@@ -101,13 +104,7 @@ class DropdownPageObject<T> extends PageObject {
   Finder get _itemsFinder =>
       find.byWidgetPredicate((w) => w is DropdownMenuItem<T>);
 
-  DropdownButton<T> get _dropdownButtonWidget => t.widget<DropdownButton<T>>(
-        find.descendant(
-          of: this,
-          matching: find.byWidgetPredicate((w) => w is DropdownButton<T>),
-          matchRoot: true,
-        ),
-      );
+  DropdownButton<T> get _widget => widget<DropdownButton<T>>();
 
   Offset _findTapLocationOutsideThePopupMenu() {
     final menuFinder = find.ancestor(

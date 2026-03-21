@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
 import 'page_object_factory.dart';
@@ -6,15 +8,18 @@ import 'page_object_factory.dart';
 /// A page object representing a [ProgressIndicator] widget.
 class ProgressIndicatorPageObject extends PageObject {
   /// Creates a [ProgressIndicatorPageObject] with the given [finder].
-  ProgressIndicatorPageObject(super.t, super.finder);
+  ProgressIndicatorPageObject(WidgetTester t, Finder finder)
+      : super(
+            t,
+            finder
+                .firstDescendantWidgetMatching((w) => w is ProgressIndicator));
 
   /// The value of the progress indicator.
   ///
   /// Returns `null` if the progress indicator is indeterminate.
   double? get value => _widget.value;
 
-  ProgressIndicator get _widget =>
-      descendantWidgetMatchingType<ProgressIndicator>();
+  ProgressIndicator get _widget => widget<ProgressIndicator>();
 }
 
 /// Extension on [PageObjectFactory] to create [ProgressIndicatorPageObject]s.

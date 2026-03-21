@@ -25,8 +25,7 @@ void main() {
     await t.pumpWidget(
         const MaterialApp(home: Scaffold(body: SizedBox(key: aKey))));
     final pageObject = PageObjectFactory.root(t).byKey.chip(aKey);
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
-    expect(() => pageObject.isSelected, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 }
 

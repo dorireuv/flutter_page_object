@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';
@@ -10,13 +11,14 @@ import 'page_object_factory.dart';
 /// [SwitchListTile].
 class SwitchPageObject extends PageObject {
   /// Creates a [SwitchPageObject] with the given [finder].
-  SwitchPageObject(super.t, super.finder);
+  SwitchPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching(_isSwitch));
 
   /// Gets the value of the switch.
-  bool get value => _switchWidget.value;
+  bool get value => _widget.value;
 
   /// Whether the switch is disabled (i.e. cannot be tapped).
-  bool get isDisabled => _switchWidget.onChanged == null;
+  bool get isDisabled => _widget.onChanged == null;
 
   /// Whether the switch is enabled (i.e. can be tapped).
   bool get isEnabled => !isDisabled;
@@ -35,18 +37,16 @@ class SwitchPageObject extends PageObject {
     }
   }
 
-  _SwitchWidget get _switchWidget {
-    final w = descendantWidgetMatchingOrRoot(
-        (w) => w is Switch || w is SwitchListTile || w is CupertinoSwitch);
+  _SwitchWidget get _widget {
+    final w = widget();
     if (w is Switch) {
       return _SwitchWidget(w.value, w.onChanged);
     } else if (w is SwitchListTile) {
       return _SwitchWidget(w.value, w.onChanged);
-    } else if (w is CupertinoSwitch) {
+    } else {
+      w as CupertinoSwitch;
       return _SwitchWidget(w.value, w.onChanged);
     }
-    throw TestFailure(
-        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 
@@ -62,3 +62,6 @@ class _SwitchWidget {
 
   _SwitchWidget(this.value, this.onChanged);
 }
+
+bool _isSwitch(Widget w) =>
+    w is Switch || w is SwitchListTile || w is CupertinoSwitch;

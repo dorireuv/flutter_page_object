@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
@@ -22,19 +23,20 @@ class TextFieldPageObject<T extends Object> extends PageObject {
   /// Creates a [TextFieldPageObject] with the given [finder], [formatter],
   /// and [parser]
   TextFieldPageObject(
-    super.t,
-    super.finder, {
+    WidgetTester t,
+    Finder finder, {
     required String Function(T v) formatter,
     required T? Function(String v) parser,
   })  : _formatter = formatter,
-        _parser = parser;
+        _parser = parser,
+        super(t, finder.firstDescendantWidgetMatching((w) => w is TextField));
 
   /// Enters the given text into the text field.
   Future<void> setText(String v) => t.enterText(this, v);
 
   /// Gets the current text value of the text field.
   String get textValue {
-    final w = descendantWidgetMatchingType<TextField>();
+    final w = _widget;
     if (w.controller != null) {
       return w.controller!.text;
     }
@@ -52,6 +54,8 @@ class TextFieldPageObject<T extends Object> extends PageObject {
   /// current text value. Returns null if the text value cannot be parsed to a
   /// value of type [T].
   T? get value => _parser(textValue);
+
+  TextField get _widget => widget<TextField>();
 }
 
 /// Extension on [PageObjectFactory] to create [TextFieldPageObject]s.

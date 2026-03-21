@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
@@ -9,7 +10,8 @@ import 'page_object_factory.dart';
 /// `tristate` set to `true`.
 class TristateCheckboxPageObject extends PageObject {
   /// Creates a [TristateCheckboxPageObject] with the given [finder].
-  TristateCheckboxPageObject(super.t, super.finder);
+  TristateCheckboxPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching(_isCheckbox));
 
   /// Gets whether the checkbox is disabled.
   bool get isDisabled => _checkboxWidget.onChanged == null;
@@ -44,17 +46,15 @@ class TristateCheckboxPageObject extends PageObject {
   }
 
   _CheckboxWidget get _checkboxWidget {
-    final w = descendantWidgetMatchingOrRoot((w) =>
-        w is Checkbox || w is CheckboxListTile || w is CupertinoCheckbox);
+    final w = widget();
     if (w is Checkbox) {
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
     } else if (w is CheckboxListTile) {
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
-    } else if (w is CupertinoCheckbox) {
+    } else {
+      w as CupertinoCheckbox;
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
     }
-    throw TestFailure(
-        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 
@@ -74,3 +74,6 @@ class _CheckboxWidget {
     assert(tristate);
   }
 }
+
+bool _isCheckbox(Widget w) =>
+    w is Checkbox || w is CheckboxListTile || w is CupertinoCheckbox;

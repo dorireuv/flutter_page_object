@@ -13,21 +13,21 @@ abstract class PageObject extends Finder {
   final WidgetTester t;
 
   /// Finder that locates the widget(s) represented by this page object.
-  final Finder finder;
+  final Finder _finder;
 
   /// Creates a [PageObject].
-  PageObject(this.t, this.finder);
+  PageObject(this.t, this._finder);
 
   @override
   // ignore: deprecated_member_use
-  String get description => finder.description;
+  String get description => _finder.description;
 
   @override
-  Iterable<Element> get allCandidates => finder.allCandidates;
+  Iterable<Element> get allCandidates => _finder.allCandidates;
 
   @override
   Iterable<Element> findInCandidates(Iterable<Element> candidates) =>
-      finder.findInCandidates(candidates);
+      _finder.findInCandidates(candidates);
 
   /// Accesses page objects starting from the root of the widget tree.
   late final root = PageObjectFactory.root(t);
@@ -93,41 +93,6 @@ abstract class PageObject extends Finder {
 
   /// Gets the widget represented by this page object.
   T widget<T extends Widget>() => t.widget<T>(this);
-
-  /// Gets the widget of type [T] represented by this page object. If the root
-  /// widget is not of type [T], it will search for the first descendant of type
-  /// [T]. This is useful when the target widget might be wrapped.
-  T descendantWidgetMatchingType<T extends Widget>() =>
-      descendantWidgetMatching((w) => w is T, 'widget of type $T') as T;
-
-  /// Gets the widget represented by this page object that matches the given
-  /// [predicate]. If the root widget does not match, it searches for the first
-  /// matching descendant. This is useful for handling wrapped widgets.
-  Widget descendantWidgetMatching(bool Function(Widget) predicate,
-      [String desc = '']) {
-    final w = descendantWidgetMatchingOrNull(predicate);
-    if (w != null) {
-      return w;
-    }
-
-    throw TestFailure('$runtimeType could not find $desc.');
-  }
-
-  /// Gets the widget represented by this page object that matches the given
-  /// [predicate]. If the root widget does not match, it searches for the first
-  /// matching descendant. Returns null if no matching widget is found.
-  Widget? descendantWidgetMatchingOrNull(bool Function(Widget) predicate) {
-    final descendant = find.descendant(
-        of: this, matching: find.byWidgetPredicate(predicate), matchRoot: true);
-    return descendant.evaluate().firstOrNull?.widget;
-  }
-
-  /// Gets the widget represented by this page object that matches the given
-  /// [predicate]. If the root widget does not match, it searches for the first
-  /// matching descendant. Returns null if no matching widget is found.
-  Widget descendantWidgetMatchingOrRoot(bool Function(Widget) predicate) {
-    return descendantWidgetMatchingOrNull(predicate) ?? widget();
-  }
 
   /// Gets the widget state represented by this page object.
   T state<T extends State>() => t.state<T>(this);

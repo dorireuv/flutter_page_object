@@ -21,11 +21,11 @@ void main() {
     group('$type', () => _SwitchTest(type).runTests());
   }
 
-  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+  testWidgets('unsupported widget --> throws', (t) async {
     await t
         .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
     final pageObject = SwitchPageObject(t, aFinder);
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 }
 

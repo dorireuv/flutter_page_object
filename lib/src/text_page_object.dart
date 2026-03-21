@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
 import 'page_object_factory.dart';
@@ -6,7 +8,8 @@ import 'page_object_factory.dart';
 /// A page object representing a [Text] widget.
 class TextPageObject extends PageObject {
   /// Creates a [TextPageObject] with the given [finder].
-  TextPageObject(super.t, super.finder);
+  TextPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching((w) => w is Text));
 
   /// Gets the text content of the [Text] widget.
   String? get text => _widget.data;
@@ -22,7 +25,7 @@ class TextPageObject extends PageObject {
   /// it is `null`.
   String get textSpanPlainTextOrEmpty => textSpanPlainText ?? '';
 
-  Text get _widget => descendantWidgetMatchingType<Text>();
+  Text get _widget => widget<Text>();
 }
 
 /// Extension on [PageObjectFactory] to create [TextPageObject]s.

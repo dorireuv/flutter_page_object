@@ -27,11 +27,7 @@ void main() {
 
     final pageObject = PageObjectFactory.root(t).radio<int>(aFinder);
 
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
-    expect(() => pageObject.isDisabled, throwsA(isA<TestFailure>()));
-    expect(() => pageObject.isSelected, throwsA(isA<TestFailure>()));
-    expect(() => pageObject.value, throwsA(isA<TestFailure>()));
-    expect(() => pageObject.groupValue, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 }
 

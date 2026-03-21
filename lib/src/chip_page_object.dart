@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';
@@ -9,13 +10,14 @@ import 'page_object_factory.dart';
 /// [FilterChip], [InputChip], [ActionChip], [RawChip]).
 class ChipPageObject extends PageObject {
   /// Creates a [ChipPageObject] with the given [finder].
-  ChipPageObject(super.t, super.finder);
+  ChipPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching(_isChip));
 
   /// Whether the chip is selected.
-  bool get isSelected => _chipWidget.selected;
+  bool get isSelected => _widget.selected;
 
   /// Whether the chip is enabled.
-  bool get isEnabled => _chipWidget.isEnabled;
+  bool get isEnabled => _widget.isEnabled;
 
   /// Whether the chip is disabled.
   bool get isDisabled => !isEnabled;
@@ -35,25 +37,18 @@ class ChipPageObject extends PageObject {
     }
   }
 
-  _ChipWidget get _chipWidget {
-    final w = descendantWidgetMatchingOrRoot((w) =>
-        w is ChoiceChip ||
-        w is FilterChip ||
-        w is InputChip ||
-        w is ActionChip ||
-        w is RawChip);
+  _ChipWidget get _widget {
+    final w = widget();
     if (w is ChoiceChip) {
       return _ChipWidget(selected: w.selected, isEnabled: w.onSelected != null);
     } else if (w is FilterChip) {
       return _ChipWidget(selected: w.selected, isEnabled: w.onSelected != null);
     } else if (w is InputChip) {
       return _ChipWidget(selected: w.selected, isEnabled: w.isEnabled);
-    } else if (w is RawChip) {
+    } else {
+      w as RawChip;
       return _ChipWidget(selected: w.selected, isEnabled: w.isEnabled);
     }
-
-    throw TestFailure(
-        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 
@@ -69,3 +64,10 @@ class _ChipWidget {
 
   _ChipWidget({required this.selected, required this.isEnabled});
 }
+
+bool _isChip(Widget w) =>
+    w is ChoiceChip ||
+    w is FilterChip ||
+    w is InputChip ||
+    w is ActionChip ||
+    w is RawChip;

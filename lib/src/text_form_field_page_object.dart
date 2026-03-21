@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
@@ -23,12 +24,14 @@ class TextFormFieldPageObject<T extends Object> extends PageObject {
   /// Creates a [TextFormFieldPageObject] with the given [finder], [formatter],
   /// and [parser]
   TextFormFieldPageObject(
-    super.t,
-    super.finder, {
+    WidgetTester t,
+    Finder finder, {
     required String Function(T v) formatter,
     required T? Function(String v) parser,
   })  : _formatter = formatter,
-        _parser = parser;
+        _parser = parser,
+        super(
+            t, finder.firstDescendantWidgetMatching((w) => w is TextFormField));
 
   /// Enters the given text into the text field and waits for the change to be
   Future<void> setText(String v) => t.enterText(this, v);

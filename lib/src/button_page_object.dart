@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'page_object.dart';
@@ -8,19 +9,14 @@ import 'page_object_factory.dart';
 /// A page object representing a button.
 class ButtonPageObject extends PageObject {
   /// Creates a [ButtonPageObject] with the given [finder].
-  ButtonPageObject(super.t, super.finder);
+  ButtonPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching(_isButton));
 
   /// Whether the button is enabled.
-  bool get isEnabled => _buttonWidget.onPressed != null;
+  bool get isEnabled => _widget.onPressed != null;
 
-  _ButtonWidget get _buttonWidget {
-    final w = descendantWidgetMatchingOrRoot((w) =>
-        w is ButtonStyleButton ||
-        w is IconButton ||
-        w is MaterialButton ||
-        w is CupertinoButton ||
-        w is FloatingActionButton ||
-        w is RawMaterialButton);
+  _ButtonWidget get _widget {
+    final w = widget();
     if (w is ButtonStyleButton) {
       return _ButtonWidget(w.onPressed);
     } else if (w is IconButton) {
@@ -31,12 +27,10 @@ class ButtonPageObject extends PageObject {
       return _ButtonWidget(w.onPressed);
     } else if (w is FloatingActionButton) {
       return _ButtonWidget(w.onPressed);
-    } else if (w is RawMaterialButton) {
+    } else {
+      w as RawMaterialButton;
       return _ButtonWidget(w.onPressed);
     }
-
-    throw TestFailure(
-        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 
   /// Whether the button is disabled.
@@ -54,3 +48,11 @@ class _ButtonWidget {
 
   _ButtonWidget(this.onPressed);
 }
+
+bool _isButton(Widget w) =>
+    w is ButtonStyleButton ||
+    w is IconButton ||
+    w is MaterialButton ||
+    w is CupertinoButton ||
+    w is FloatingActionButton ||
+    w is RawMaterialButton;

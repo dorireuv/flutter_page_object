@@ -21,11 +21,11 @@ void main() {
     group('$type', () => _CheckboxTest(type).runTests());
   }
 
-  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+  testWidgets('unsupported widget --> throws', (t) async {
     await t
         .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
     final pageObject = CheckboxPageObject(t, aFinder);
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 
   testWidgets('wrapped widget --> finds', (t) async {
@@ -48,6 +48,20 @@ class _CheckboxTest {
       _Widget(type: type, value: value, isEnabled: isEnabled);
 
   void runTests() {
+    group('isEnabled', () {
+      testWidgets('disabled --> false', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: false));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isEnabled, isFalse);
+      });
+
+      testWidgets('enabled --> true', (t) async {
+        await t.pumpWidget(createWidget(isEnabled: true));
+        final pageObject = createPageObject(t);
+        expect(pageObject.isEnabled, isTrue);
+      });
+    });
+
     group('isDisabled', () {
       testWidgets('disabled --> true', (t) async {
         await t.pumpWidget(createWidget(isEnabled: false));

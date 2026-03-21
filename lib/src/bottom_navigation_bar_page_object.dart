@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'nav_button_page_object.dart';
+import 'nav_page_object.dart';
 import 'page_object.dart';
 import 'page_object_builder.dart';
 import 'page_object_factory.dart';
@@ -26,11 +26,11 @@ class BottomNavigationBarPageObject extends PageObject {
     await t.pump();
   }
 
-  /// Creates a [NavButtonPageObject] for the item with the given [icon] and
+  /// Creates a [NavPageObject] for the item with the given [icon] and
   /// [target].
-  NavButtonPageObject<T> item<T extends PageObject>(
+  NavPageObject<T> item<T extends PageObject>(
       IconData icon, PageObjectStaticBuilder<T> target) {
-    return d.byIcon.navButton(icon, target);
+    return d.byIcon.nav(icon, target);
   }
 
   Finder get _itemFinder =>

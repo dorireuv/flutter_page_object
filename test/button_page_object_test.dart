@@ -25,11 +25,11 @@ void main() {
     group('$type', () => _ButtonTest(type).runTests());
   }
 
-  testWidgets('isEnabled unsupported widget --> throws', (t) async {
+  testWidgets('unsupported widget --> throws', (t) async {
     await t
         .pumpWidget(const MaterialApp(home: Scaffold(body: Column(key: aKey))));
     final pageObject = ButtonPageObject(t, aFinder);
-    expect(() => pageObject.isEnabled, throwsA(isA<TestFailure>()));
+    expect(() => pageObject.widget(), throwsStateError);
   });
 }
 

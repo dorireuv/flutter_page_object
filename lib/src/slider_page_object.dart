@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';
@@ -8,7 +9,8 @@ import 'page_object_factory.dart';
 /// A page object representing a [Slider] widget.
 class SliderPageObject extends PageObject {
   /// Creates a [SliderPageObject] with the given [finder].
-  SliderPageObject(super.t, super.finder);
+  SliderPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching((w) => w is Slider));
 
   /// The current value of the slider.
   double get value => _widget.value;
@@ -35,7 +37,7 @@ class SliderPageObject extends PageObject {
     await t.pump();
   }
 
-  Slider get _widget => descendantWidgetMatchingType<Slider>();
+  Slider get _widget => widget<Slider>();
 }
 
 /// Extension on [PageObjectFactory] to create [SliderPageObject]s.

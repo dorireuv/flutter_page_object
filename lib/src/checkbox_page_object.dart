@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_object/src/finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';
@@ -9,16 +10,17 @@ import 'page_object_factory.dart';
 /// A page object representing a [Checkbox] or [CheckboxListTile] widget.
 class CheckboxPageObject extends PageObject {
   /// Creates a [CheckboxPageObject] with the given [finder].
-  CheckboxPageObject(super.t, super.finder);
+  CheckboxPageObject(WidgetTester t, Finder finder)
+      : super(t, finder.firstDescendantWidgetMatching(_isCheckbox));
 
   /// Whether the checkbox is disabled (i.e. cannot be tapped).
-  bool get isDisabled => _checkboxWidget.onChanged == null;
+  bool get isDisabled => _widget.onChanged == null;
 
   /// Whether the checkbox is enabled (i.e. can be tapped).
   bool get isEnabled => !isDisabled;
 
   /// Whether the checkbox is checked.
-  bool get value => _checkboxWidget.value;
+  bool get value => _widget.value;
 
   /// Checks the checkbox if it is not already checked.
   Future<void> check() => set(true);
@@ -35,19 +37,16 @@ class CheckboxPageObject extends PageObject {
     }
   }
 
-  _CheckboxWidget get _checkboxWidget {
-    final w = descendantWidgetMatchingOrRoot((w) =>
-        w is Checkbox || w is CheckboxListTile || w is CupertinoCheckbox);
+  _CheckboxWidget get _widget {
+    final w = widget();
     if (w is Checkbox) {
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
     } else if (w is CheckboxListTile) {
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
-    } else if (w is CupertinoCheckbox) {
+    } else {
+      w as CupertinoCheckbox;
       return _CheckboxWidget(w.value, w.onChanged, w.tristate);
     }
-
-    throw TestFailure(
-        '$runtimeType does not support widget of type "${w.runtimeType}".');
   }
 }
 
@@ -68,3 +67,6 @@ class _CheckboxWidget {
 
   bool get value => _value!;
 }
+
+bool _isCheckbox(Widget w) =>
+    w is Checkbox || w is CheckboxListTile || w is CupertinoCheckbox;
