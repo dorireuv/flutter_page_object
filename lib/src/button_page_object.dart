@@ -19,13 +19,13 @@ class ButtonPageObject extends PageObject {
     final w = widget();
     if (w is ButtonStyleButton) {
       return _ButtonWidget(w.onPressed);
-    } else if (w is IconButton) {
-      return _ButtonWidget(w.onPressed);
-    } else if (w is MaterialButton) {
-      return _ButtonWidget(w.onPressed);
     } else if (w is CupertinoButton) {
       return _ButtonWidget(w.onPressed);
     } else if (w is FloatingActionButton) {
+      return _ButtonWidget(w.onPressed);
+    } else if (w is IconButton) {
+      return _ButtonWidget(w.onPressed);
+    } else if (w is MaterialButton) {
       return _ButtonWidget(w.onPressed);
     } else {
       w as RawMaterialButton;
@@ -50,9 +50,9 @@ class _ButtonWidget {
 }
 
 bool _isButton(Widget w) =>
-    w is ButtonStyleButton ||
-    w is IconButton ||
-    w is MaterialButton ||
+    w is ButtonStyleButton || // For TextButton and ElevatedButton.
     w is CupertinoButton ||
     w is FloatingActionButton ||
+    w is IconButton ||
+    w is MaterialButton ||
     w is RawMaterialButton;

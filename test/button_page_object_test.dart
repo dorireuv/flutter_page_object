@@ -6,13 +6,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 
 enum _Type {
+  cupertino(CupertinoButton.new),
   elevated(ElevatedButton.new),
-  text(TextButton.new),
+  fab(FloatingActionButton.new),
   icon(_buildIconButton),
   material(MaterialButton.new),
-  cupertino(CupertinoButton.new),
-  fab(FloatingActionButton.new),
   rawMaterial(RawMaterialButton.new),
+  text(TextButton.new),
   ;
 
   final _Constructor constructor;
