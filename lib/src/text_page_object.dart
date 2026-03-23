@@ -11,8 +11,8 @@ class TextPageObject extends PageObject {
   TextPageObject(WidgetTester t, Finder finder)
       : super(t, finder.firstDescendantWidgetMatching(_isText));
 
-  /// Gets the text content of the [Text] widget.
-  String? get text => _widget.value;
+  /// Gets the text content of the text widget.
+  String get text => _widget.value;
 
   _TextWidget get _widget {
     final w = widget();
