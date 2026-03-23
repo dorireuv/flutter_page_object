@@ -21,70 +21,28 @@ void main() {
       expect(pageObject.text, isEmpty);
     });
 
-    testWidgets('TextSpan --> null', (t) async {
-      await t.pumpWidget(const _TextSpan());
-      final pageObject = createPageObject(t);
-      expect(pageObject.text, isNull);
-    });
-  });
-
-  group('textOrEmpty', () {
-    testWidgets('Text non-empty --> text', (t) async {
-      await t.pumpWidget(const _Widget(text: 'text'));
-      final pageObject = createPageObject(t);
-      expect(pageObject.textOrEmpty, 'text');
-    });
-
-    testWidgets('Text empty --> empty', (t) async {
-      await t.pumpWidget(const _Widget(text: ''));
-      final pageObject = createPageObject(t);
-      expect(pageObject.textOrEmpty, isEmpty);
-    });
-
-    testWidgets('TextSpan --> empty', (t) async {
-      await t.pumpWidget(const _TextSpan());
-      final pageObject = createPageObject(t);
-      expect(pageObject.textOrEmpty, isEmpty);
-    });
-  });
-
-  group('textSpanPlainText', () {
-    testWidgets('Text --> null', (t) async {
-      await t.pumpWidget(const _Widget());
-      final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainText, isNull);
-    });
-
     testWidgets('TextSpan non-empty --> content', (t) async {
       await t.pumpWidget(const _TextSpan(text: 'text'));
       final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainText, 'text');
+      expect(pageObject.text, 'text');
     });
 
     testWidgets('TextSpan empty --> empty', (t) async {
       await t.pumpWidget(const _TextSpan(text: ''));
       final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainText, '');
-    });
-  });
-
-  group('textSpanPlainTextOrEmpty', () {
-    testWidgets('Text --> empty', (t) async {
-      await t.pumpWidget(const _Widget(text: ''));
-      final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainTextOrEmpty, isEmpty);
+      expect(pageObject.text, '');
     });
 
-    testWidgets('TextSpan non-empty --> content', (t) async {
-      await t.pumpWidget(const _TextSpan(text: 'text'));
+    testWidgets('RichText non-empty --> content', (t) async {
+      await t.pumpWidget(const _RichText(text: 'text'));
       final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainTextOrEmpty, 'text');
+      expect(pageObject.text, 'text');
     });
 
-    testWidgets('TextSpan empty --> empty', (t) async {
-      await t.pumpWidget(const _TextSpan(text: ''));
+    testWidgets('RichText empty --> empty', (t) async {
+      await t.pumpWidget(const _RichText(text: ''));
       final pageObject = createPageObject(t);
-      expect(pageObject.textSpanPlainTextOrEmpty, '');
+      expect(pageObject.text, '');
     });
   });
 }
@@ -108,5 +66,16 @@ class _TextSpan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: Text.rich(key: aKey, TextSpan(text: text)));
+  }
+}
+
+class _RichText extends StatelessWidget {
+  final String text;
+
+  const _RichText({this.text = 'foo'});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: RichText(key: aKey, text: TextSpan(text: text)));
   }
 }

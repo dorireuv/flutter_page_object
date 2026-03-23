@@ -58,7 +58,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [TabBarPageObject](lib/src/tab_bar_page_object.dart) - For `TabBar` widget.
  - [TextFieldPageObject](lib/src/text_field_page_object.dart) - For `TextField` widget.
  - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
- - [TextPageObject](lib/src/text_page_object.dart) - For `Text` widget.
+ - [TextPageObject](lib/src/text_page_object.dart) - For `Text` / `RichText` widget.
  - [TristateCheckboxPageObject](lib/src/tristate_checkbox_page_object.dart) - For checkbox widgets which are in tristate mode such as `Checkbox` / `CheckboxListTile` / `CupertinoCheckbox`.
  - [WidgetListPageObject](lib/src/widget_list_page_object.dart) - For list of widgets such as `Column` / `Row`.
  - [WidgetPageObject](lib/src/widget_page_object.dart) - Generic page object for any widget.
