@@ -17,10 +17,10 @@ class TextPageObject extends PageObject {
   _TextWidget get _widget {
     final w = widget();
     if (w is Text) {
-      return _TextWidget(w.data ?? w.textSpan?.toPlainText() ?? '');
+      return _TextWidget.fromText(w);
     } else {
       w as RichText;
-      return _TextWidget(w.text.toPlainText());
+      return _TextWidget.fromRichText(w);
     }
   }
 }
@@ -35,6 +35,27 @@ class _TextWidget {
   final String value;
 
   _TextWidget(this.value);
+
+  factory _TextWidget.fromText(Text w) {
+    final data = w.data;
+    final textSpan = w.textSpan;
+    if (data != null) {
+      return _TextWidget(data);
+    } else if (textSpan != null) {
+      return _TextWidget.fromSpan(textSpan);
+    } else {
+      return _TextWidget.empty();
+    }
+  }
+
+  factory _TextWidget.fromRichText(RichText w) => _TextWidget.fromSpan(w.text);
+
+  factory _TextWidget.fromSpan(InlineSpan w) {
+    return _TextWidget(w.toPlainText(
+        includeSemanticsLabels: false, includePlaceholders: false));
+  }
+
+  factory _TextWidget.empty() => _TextWidget('');
 }
 
 bool _isText(Widget w) => w is Text || w is RichText;
