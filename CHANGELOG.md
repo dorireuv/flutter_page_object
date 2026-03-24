@@ -1,3 +1,7 @@
+## 0.1.8
+
+* TextPageObject - leave text field only (which will ignore semantic labels and placeholders).
+
 ## 0.1.7
 
 * Allow widget specific page objects to search for their widget in their descendants - take 2.
