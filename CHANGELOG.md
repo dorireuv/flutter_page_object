@@ -1,3 +1,9 @@
+## 0.1.9
+
+* `TextFormFieldPageObject` / `TextFieldPageObject` - rename setText to enterText and create `TextInputPageObject` base class to avoid code duplication.
+* `PageObject` - rename `shown` to `hitTestable`.
+* Update deps.
+
 ## 0.1.8
 
 * TextPageObject - leave text field only (which will ignore semantic labels and placeholders).
