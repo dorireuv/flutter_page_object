@@ -16,8 +16,8 @@ class LoginPageObject extends PageObject {
   LoginPageObject(WidgetTester t) : super(t, _finder);
 
   Future<void> completeForm() async {
-    await username.setText('username');
-    await password.setText('password');
+    await username.enterText('username');
+    await password.enterText('password');
     await t.pump();
   }
 }

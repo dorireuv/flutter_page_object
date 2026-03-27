@@ -1,4 +1,5 @@
 import 'package:example/app.dart';
+import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_common/login_page_object.dart';
 
@@ -21,7 +22,7 @@ void main() {
     final loginPage = LoginPageObject(t);
     await loginPage.completeForm();
 
-    await loginPage.username.setText('');
+    await loginPage.username.enterText('');
     await t.pump();
 
     expect(loginPage.loginButton.isEnabled, isFalse);
@@ -32,7 +33,7 @@ void main() {
     final loginPage = LoginPageObject(t);
     await loginPage.completeForm();
 
-    await loginPage.password.setText('');
+    await loginPage.password.enterText('');
     await t.pump();
 
     expect(loginPage.loginButton.isEnabled, isFalse);

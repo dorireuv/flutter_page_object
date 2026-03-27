@@ -1,7 +1,3 @@
-/// Flutter page object library - allowing to write page objects for your
-/// application using the PageObject pattern.
-library flutter_page_object;
-
 export 'src/bottom_navigation_bar_page_object.dart';
 export 'src/button_page_object.dart';
 export 'src/checkbox_page_object.dart';

@@ -24,8 +24,8 @@ testWidgets('form completed and tap login button --> navigates to home page', (t
   await t.pumpWidget(const App());
   final loginPage = LoginPageObject(t);
 
-  await loginPage.username.setText('username');
-  await loginPage.password.setText('password');
+  await loginPage.username.enterText('username');
+  await loginPage.password.enterText('password');
   await t.pump();
   final homePage = await loginPage.loginButton.tapNavAndSettle();
 
