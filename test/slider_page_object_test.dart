@@ -73,7 +73,7 @@ void main() {
       await t.pumpWidget(const _Widget(value: 0.5, isEnabled: true));
       final pageObject = createPageObject(t);
 
-      await pageObject.drag(const Offset(100, 0));
+      await pageObject.dragAndPump(const Offset(100, 0));
 
       expect(pageObject.value, greaterThan(0.5));
     });
@@ -82,7 +82,7 @@ void main() {
       await t.pumpWidget(const _Widget(value: 0.5, isEnabled: false));
       final pageObject = createPageObject(t);
       await expectLater(
-          () => pageObject.drag(const Offset(100, 0)), throwsStateError);
+          () => pageObject.dragAndPump(const Offset(100, 0)), throwsStateError);
     });
   });
 }

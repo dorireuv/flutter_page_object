@@ -35,6 +35,10 @@ abstract class PageObject extends Finder {
   /// Accesses page objects which are descendants of this page object.
   late final descendant = PageObjectFactory.descendant(t, this);
 
+  /// Whether the widget represented by this page object is currently visible
+  /// and can be interacted with.
+  bool get isHitTestable => hitTestable().evaluate().isNotEmpty;
+
   /// Taps the page object.
   Future<void> tap({bool warnIfMissed = true}) =>
       t.tap(this, warnIfMissed: warnIfMissed);
@@ -67,26 +71,34 @@ abstract class PageObject extends Finder {
     await t.pumpAndSettle();
   }
 
-  /// Waits until the page object is shown on the screen.
+  /// Drags the page object by the given offset.
+  Future<void> drag(Offset offset, {bool warnIfMissed = true}) =>
+      t.drag(this, offset, warnIfMissed: warnIfMissed);
+
+  /// Drags the page object by the given offset and pumps the widget tree.
+  Future<void> dragAndPump(Offset offset, {bool warnIfMissed = true}) async {
+    await drag(offset, warnIfMissed: warnIfMissed);
+    await t.pump();
+  }
+
+  /// Waits until the page object is hit-testable on the screen.
   ///
-  /// Throws if it is not shown after the given [timeout].
-  Future<void> waitUntilShown({Duration timeout = _defaultTimeout}) {
-    final hitTestableFinder = hitTestable();
+  /// Throws if it is not hit-testable after the given [timeout].
+  Future<void> waitUntilHitTestable({Duration timeout = _defaultTimeout}) {
     return _wait(
-      () => hitTestableFinder.evaluate().isEmpty,
-      'Timed out waiting until $this is shown',
+      () => !isHitTestable,
+      'Timed out waiting until $this is hit-testable',
       timeout,
     );
   }
 
-  /// Waits while the page object is shown on the screen.
+  /// Waits while the page object is hit-testable on the screen.
   ///
-  /// Throws if it is still shown after the given [timeout].
-  Future<void> waitWhileShown({Duration timeout = _defaultTimeout}) {
-    final hitTestableFinder = hitTestable();
+  /// Throws if it is still hit-testable after the given [timeout].
+  Future<void> waitWhileHitTestable({Duration timeout = _defaultTimeout}) {
     return _wait(
-      () => hitTestableFinder.evaluate().isNotEmpty,
-      'Timed out waiting while $this is shown',
+      () => isHitTestable,
+      'Timed out waiting while $this is hit-testable',
       timeout,
     );
   }

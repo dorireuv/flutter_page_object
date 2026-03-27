@@ -89,26 +89,26 @@ void main() {
     expect(pageObject.text, findsOne);
   });
 
-  group('waitUntilShown', () {
-    testWidgets('waits until the widget is shown', (t) async {
+  group('waitUntilHitTestable', () {
+    testWidgets('waits until the widget is hit testable', (t) async {
       await t.pumpWidget(const _Widget());
       final pageObject = createPageObject(t);
 
       expect(pageObject.text, findsNothing);
 
       await pageObject.button.tap();
-      await pageObject.text.waitUntilShown();
+      await pageObject.text.waitUntilHitTestable();
 
       expect(pageObject.text, findsOne);
     });
 
-    testWidgets('noop if the widget is already shown', (t) async {
+    testWidgets('noop if the widget is already hit testable', (t) async {
       await t.pumpWidget(const _Widget());
       final pageObject = createPageObject(t);
       await pageObject.button.tapAndPump();
       expect(pageObject.text, findsOne);
 
-      await pageObject.text.waitUntilShown();
+      await pageObject.text.waitUntilHitTestable();
 
       expect(pageObject.text, findsOne);
     });
@@ -119,14 +119,14 @@ void main() {
 
       await expectLater(
         () => pageObject.text
-            .waitUntilShown(timeout: const Duration(milliseconds: 50)),
+            .waitUntilHitTestable(timeout: const Duration(milliseconds: 50)),
         throwsA(isA<TestFailure>()),
       );
     });
   });
 
-  group('waitWhileShown', () {
-    testWidgets('waits until the widget is no longer shown', (t) async {
+  group('waitWhileHitTestable', () {
+    testWidgets('waits until the widget is no longer hit testable', (t) async {
       await t.pumpWidget(const _Widget());
       final pageObject = createPageObject(t);
       await pageObject.button.tap();
@@ -134,27 +134,27 @@ void main() {
       expect(pageObject.text, findsOne);
 
       await pageObject.button.tap();
-      await pageObject.text.waitWhileShown();
+      await pageObject.text.waitWhileHitTestable();
 
       expect(pageObject.text, findsNothing);
     });
 
-    testWidgets('noop if the widget is already not shown', (t) async {
+    testWidgets('noop if the widget is already not hit testable', (t) async {
       await t.pumpWidget(const _Widget());
       final pageObject = createPageObject(t);
 
-      await pageObject.text.waitWhileShown();
+      await pageObject.text.waitWhileHitTestable();
 
       expect(pageObject.text, findsNothing);
     });
 
-    testWidgets('throws on timeout if widget remains shown', (t) async {
+    testWidgets('throws on timeout if widget remains hit testable', (t) async {
       await t.pumpWidget(const _Widget());
       final pageObject = createPageObject(t);
 
       await expectLater(
         () => pageObject.button
-            .waitWhileShown(timeout: const Duration(milliseconds: 50)),
+            .waitWhileHitTestable(timeout: const Duration(milliseconds: 50)),
         throwsA(isA<TestFailure>()),
       );
     });

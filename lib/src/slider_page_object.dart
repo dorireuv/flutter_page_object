@@ -30,11 +30,10 @@ class SliderPageObject extends PageObject {
   /// Whether the slider is disabled.
   bool get isDisabled => !isEnabled;
 
-  /// Drags the slider by the given [offset].
-  Future<void> drag(Offset offset) async {
+  @override
+  Future<void> drag(Offset offset, {bool warnIfMissed = true}) async {
     checkState(isEnabled);
-    await t.drag(this, offset);
-    await t.pump();
+    await super.drag(offset, warnIfMissed: warnIfMissed);
   }
 
   Slider get _widget => widget<Slider>();
