@@ -13,7 +13,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
+
+  flutter_page_object:
+    path: ../
+
   test_common:
     path: test_common
 
