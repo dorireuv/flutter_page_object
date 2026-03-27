@@ -6,7 +6,7 @@
 
 ## 0.1.8
 
-* TextPageObject - leave text field only (which will ignore semantic labels and placeholders).
+* `TextPageObject` - leave text field only (which will ignore semantic labels and placeholders).
 
 ## 0.1.7
 
