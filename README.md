@@ -42,6 +42,7 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton` / `IconButton` / `CupertinoButton` / `FloatingActionButton`.
  - [CheckboxPageObject](lib/src/checkbox_page_object.dart) - For checkbox widgets such as `Checkbox` / `CheckboxListTile` / `CupertinoCheckbox`.
  - [ChipPageObject](lib/src/chip_page_object.dart) - For chip widgets such as `ChoiceChip` / `InputChip` / `FilterChip` / `RawChip`.
+ - `CustomTextPageObject` - For `Text` / `RichText` widgets whose text can be parsed into a custom type.
  - [DrawerPageObject](lib/src/drawer_page_object.dart) - For `Drawer` widget.
  - [DropdownPageObject](lib/src/dropdown_page_object.dart) - For dropdown widgets such as  `DropdownButton` / `DropdownButtonFormField`.
  - [ImagePageObject](lib/src/image_page_object.dart) - For `Image` widget.

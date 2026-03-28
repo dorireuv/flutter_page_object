@@ -107,7 +107,7 @@ Finder _finderByIndex(int i) => find.byKey(_keyByIndex(i));
 IconData _iconByIndex(int i) => _icons[i];
 
 PageObjectStaticBuilder<TextPageObject> _itemPageObjectBuilder(int i) =>
-    (t) => TextPageObject(t, _finderByIndex(i));
+    (t) => PageObjectFactory.root(t).text(_finderByIndex(i));
 
 const _icons = [
   Icons.battery_0_bar,

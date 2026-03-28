@@ -2,6 +2,7 @@ export 'src/bottom_navigation_bar_page_object.dart';
 export 'src/button_page_object.dart';
 export 'src/checkbox_page_object.dart';
 export 'src/chip_page_object.dart';
+export 'src/custom_text_page_object.dart';
 export 'src/drawer_page_object.dart';
 export 'src/dropdown_page_object.dart';
 export 'src/image_page_object.dart';
