@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Add typed text page objects for `Text` / `TextField` / `TextFormField`.
+
 ## 0.1.9
 
 * `TextFormFieldPageObject` / `TextFieldPageObject` - rename setText to enterText and create `TextInputPageObject` base class to avoid code duplication.
