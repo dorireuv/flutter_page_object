@@ -1,5 +1,4 @@
 import 'package:example/app.dart';
-import 'package:flutter_page_object/flutter_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_common/login_page_object.dart';
 

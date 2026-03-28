@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_page_object/src/finder_utils.dart';
+import 'finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'check.dart';

@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 
 void main() {
-  CustomTextPageObject<bool?> createBoolPageObject(WidgetTester t) =>
-      PageObjectFactory.root(t).customText(aFinder, parser: bool.tryParse);
+  TypedTextPageObject<bool?> createBoolPageObject(WidgetTester t) =>
+      PageObjectFactory.root(t).typedText(aFinder, parser: bool.tryParse);
 
   group('value', () {
     testWidgets('invalid --> null', (t) async {

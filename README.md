@@ -42,7 +42,6 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [ButtonPageObject](lib/src/button_page_object.dart) - For button widgets such as `ElevatedButton` / `TextButton` / `IconButton` / `CupertinoButton` / `FloatingActionButton`.
  - [CheckboxPageObject](lib/src/checkbox_page_object.dart) - For checkbox widgets such as `Checkbox` / `CheckboxListTile` / `CupertinoCheckbox`.
  - [ChipPageObject](lib/src/chip_page_object.dart) - For chip widgets such as `ChoiceChip` / `InputChip` / `FilterChip` / `RawChip`.
- - `CustomTextPageObject` - For `Text` / `RichText` widgets whose text can be parsed into a custom type.
  - [DrawerPageObject](lib/src/drawer_page_object.dart) - For `Drawer` widget.
  - [DropdownPageObject](lib/src/dropdown_page_object.dart) - For dropdown widgets such as  `DropdownButton` / `DropdownButtonFormField`.
  - [ImagePageObject](lib/src/image_page_object.dart) - For `Image` widget.
@@ -61,6 +60,9 @@ You can create your own page object by simply extending the [PageObject](lib/src
  - [TextFormFieldPageObject](lib/src/text_form_field_page_object.dart) - For `TextFormField` widget.
  - [TextPageObject](lib/src/text_page_object.dart) - For `Text` / `RichText` widget.
  - [TristateCheckboxPageObject](lib/src/tristate_checkbox_page_object.dart) - For checkbox widgets which are in tristate mode such as `Checkbox` / `CheckboxListTile` / `CupertinoCheckbox`.
+ - `TextFieldPageObject` - For `TextField` widgets whose text can be parsed into a typed value.
+ - `TypedTextFormFieldPageObject` - For `TextFormField` widgets whose text can be parsed into a typed value.
+ - `TypedTextPageObject` - For `Text` / `RichText` widgets whose text can be parsed into a typed value.
  - [WidgetListPageObject](lib/src/widget_list_page_object.dart) - For list of widgets such as `Column` / `Row`.
  - [WidgetPageObject](lib/src/widget_page_object.dart) - Generic page object for any widget.
 

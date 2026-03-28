@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'common.dart';
 
 enum _Type {
-  textField,
-  textFormField,
+  typedTextField,
+  typedTextFormField,
 }
 
 void main() {
@@ -20,15 +20,15 @@ class _TextInputTest {
 
   _TextInputTest(this.type);
 
-  TextInputPageObject createPageObject(WidgetTester t) =>
-      createPageObjectBuilder(t)(aFinder);
-
-  _TextInputPageObjectBuilder createPageObjectBuilder(WidgetTester t) {
+  TypedTextInputPageObject<bool?> createPageObject(WidgetTester t) {
     switch (type) {
-      case _Type.textField:
-        return PageObjectFactory.root(t).textField;
-      case _Type.textFormField:
-        return PageObjectFactory.root(t).textFormField;
+      case _Type.typedTextField:
+        return PageObjectFactory.root(t).typedTextField(aFinder,
+            formatter: (v) => v.toString(), parser: bool.tryParse);
+
+      case _Type.typedTextFormField:
+        return PageObjectFactory.root(t).typedTextFormField(aFinder,
+            formatter: (v) => v.toString(), parser: bool.tryParse);
     }
   }
 
@@ -46,18 +46,8 @@ class _TextInputTest {
         expect(pageObject.text, 'initialValue');
       });
 
-      testWidgets('enterText without controller', (t) async {
+      testWidgets('enterText', (t) async {
         await t.pumpWidget(_Widget(type: type));
-        final pageObject = createPageObject(t);
-
-        await pageObject.enterText('text');
-
-        expect(pageObject.text, 'text');
-      });
-
-      testWidgets('enterText with controller', (t) async {
-        await t.pumpWidget(
-            _Widget(type: type, controller: TextEditingController()));
         final pageObject = createPageObject(t);
 
         await pageObject.enterText('text');
@@ -114,20 +104,97 @@ class _TextInputTest {
         expect(submittedValue, 'initial');
       });
     });
+
+    group('value', () {
+      testWidgets('without initial value --> null', (t) async {
+        await t.pumpWidget(_Widget(type: type));
+        final pageObject = createPageObject(t);
+
+        expect(pageObject.value, null);
+      });
+
+      testWidgets('with valid initial value --> initial value', (t) async {
+        await t.pumpWidget(_Widget(type: type, initialValue: true.toString()));
+        final pageObject = createPageObject(t);
+
+        expect(pageObject.value, true);
+      });
+
+      testWidgets('with invalid initial value --> null', (t) async {
+        await t.pumpWidget(_Widget(type: type, initialValue: 'invalid'));
+        final pageObject = createPageObject(t);
+
+        expect(pageObject.value, null);
+      });
+
+      testWidgets('enterValue', (t) async {
+        await t.pumpWidget(_Widget(type: type));
+        final pageObject = createPageObject(t);
+
+        await pageObject.enterValue(true);
+
+        expect(pageObject.value, true);
+      });
+    });
+
+    testWidgets('submit -->  submits current value', (t) async {
+      String? submittedValue;
+      await t.pumpWidget(_Widget(
+        type: type,
+        initialValue: 'initial',
+        onSubmitted: (v) => submittedValue = v,
+      ));
+      final pageObject = createPageObject(t);
+
+      await pageObject.tap();
+      await pageObject.submit();
+
+      expect(submittedValue, 'initial');
+    });
+
+    testWidgets('submitValue --> enters and submits given value', (t) async {
+      String? submittedValue;
+      await t.pumpWidget(_Widget(
+        type: type,
+        onSubmitted: (v) => submittedValue = v,
+      ));
+      final pageObject = createPageObject(t);
+
+      await pageObject.submitValue(true);
+
+      expect(pageObject.value, true);
+      expect(submittedValue, 'true');
+    });
+
+    group('doAction', () {
+      testWidgets('performs the given action', (t) async {
+        String? submittedValue;
+        await t.pumpWidget(_Widget(
+          type: type,
+          initialValue: 'initial',
+          onSubmitted: (v) => submittedValue = v,
+          textInputAction: TextInputAction.go,
+        ));
+        final pageObject = createPageObject(t);
+
+        await pageObject.tapAndPump();
+        await pageObject.doAction(TextInputAction.go);
+
+        expect(submittedValue, 'initial');
+      });
+    });
   }
 }
 
 class _Widget extends StatelessWidget {
   final _Type type;
   final String? initialValue;
-  final TextEditingController? controller;
   final ValueChanged<String>? onSubmitted;
   final TextInputAction? textInputAction;
 
   const _Widget({
     required this.type,
     this.initialValue,
-    this.controller,
     this.onSubmitted,
     this.textInputAction,
   });
@@ -136,11 +203,10 @@ class _Widget extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child;
     switch (type) {
-      case _Type.textField:
-        final ctrl = controller ??
-            (initialValue != null
-                ? TextEditingController(text: initialValue)
-                : null);
+      case _Type.typedTextField:
+        final ctrl = (initialValue != null
+            ? TextEditingController(text: initialValue)
+            : null);
         child = TextField(
           key: aKey,
           controller: ctrl,
@@ -148,11 +214,10 @@ class _Widget extends StatelessWidget {
           textInputAction: textInputAction,
         );
         break;
-      case _Type.textFormField:
+      case _Type.typedTextFormField:
         child = TextFormField(
           key: aKey,
-          controller: controller,
-          initialValue: controller == null ? initialValue : null,
+          initialValue: initialValue,
           onFieldSubmitted: onSubmitted,
           textInputAction: textInputAction,
         );
@@ -162,5 +227,3 @@ class _Widget extends StatelessWidget {
     return MaterialApp(home: Scaffold(body: child));
   }
 }
-
-typedef _TextInputPageObjectBuilder = TextInputPageObject Function(Finder key);
