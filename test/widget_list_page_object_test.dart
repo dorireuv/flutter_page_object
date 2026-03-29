@@ -22,6 +22,26 @@ void main() {
     expect(pageObject.count, 3);
   });
 
+  testWidgets('items are found as descendants', (t) async {
+    await t.pumpWidget(
+      MaterialApp(
+        home: Column(
+          children: [
+            const Text('outside'),
+            Column(
+              key: aKey,
+              children: const [Text('inside')],
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final pageObject = createPageObject(t);
+    expect(pageObject.count, 1);
+    expect(pageObject.all.first.text, 'inside');
+  });
+
   group('operator []', () {
     testWidgets('in range --> finds', (t) async {
       await t.pumpWidget(const _Widget(items: ['0', '1', '2']));

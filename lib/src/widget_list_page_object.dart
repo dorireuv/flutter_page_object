@@ -21,18 +21,21 @@ class WidgetListPageObject<T extends PageObject> extends PageObject {
       super.t, super.finder, this._itemsFinder, this._itemBuilder);
 
   /// Gets the page object at the given index in the list.
-  T operator [](int index) => _buildItem(_itemsFinder.at(index));
+  T operator [](int index) => _buildItem(_descendantItemsFinder.at(index));
 
   /// Gets all items.
   List<T> get all => List<T>.generate(count, (i) => this[i]);
 
   /// Gets the number of items in the list.
-  int get count => _itemsFinder.evaluate().length;
+  int get count => _descendantItemsFinder.evaluate().length;
 
   /// Gets the page object item matching the given [itemFinder].
   T item(Finder itemFinder) => _buildItem(itemFinder);
 
   T _buildItem(Finder itemFinder) => _itemBuilder(t, itemFinder);
+
+  Finder get _descendantItemsFinder =>
+      find.descendant(of: this, matching: _itemsFinder);
 }
 
 /// Extension on [PageObjectFactory] to create [WidgetListPageObject]s.
