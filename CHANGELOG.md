@@ -1,3 +1,12 @@
+## 1.0.0
+
+* Initial stable release of `flutter_page_object`.
+* Comprehensive page object support for 25+ Flutter widget types.
+* Full API documentation with examples.
+* Typed page objects for type-safe widget testing.
+* Navigation page objects for handling app navigation flows.
+* Complete example app demonstrating real-world usage patterns.
+
 ## 0.2.2
 
 * `WidgetListPageObject` - search for descendants items only.
