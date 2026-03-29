@@ -26,7 +26,6 @@ export 'src/text_page_object.dart';
 export 'src/tristate_checkbox_page_object.dart';
 export 'src/typed_text_field_page_object.dart';
 export 'src/typed_text_form_field_page_object.dart';
-export 'src/typed_text_input_page_object.dart';
 export 'src/typed_text_page_object.dart';
 export 'src/widget_list_page_object.dart';
 export 'src/widget_page_object.dart';

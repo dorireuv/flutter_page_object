@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'finder_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'finder_utils.dart';
 import 'page_object_factory.dart';
 import 'text_input_page_object.dart';
-
-export 'text_input_page_object.dart';
 
 /// A page object representing a [TextField] widget.
 class TextFieldPageObject extends TextInputPageObject {

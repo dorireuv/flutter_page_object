@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_page_object/flutter_page_object.dart';
+import 'package:flutter_page_object/src/typed_text_input_page_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'common.dart';
