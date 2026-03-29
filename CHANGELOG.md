@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Do not export `TextInputPageObject` / `TypedTextInputPageObject`.
+
 ## 0.2.0+1
 
 * Documentation updates.
