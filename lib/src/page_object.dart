@@ -128,9 +128,15 @@ abstract class PageObject extends Finder {
 extension PageObjectFactoryShorthandExtension on PageObject {
   /// Shorthand for accessing page objects starting from the root of the widget
   /// tree.
+  ///
+  /// Example: `r.byKey.button(const Key('submit_btn'))` finds a button from
+  /// the root.
   PageObjectFactory<Finder> get r => root;
 
   /// Shorthand for accessing page objects which are descendants of this page
   /// object.
+  ///
+  /// Example: `d.byKey.textFormField(const Key('username'))` finds a text field
+  /// descendent from the current page object.
   PageObjectFactory<Finder> get d => descendant;
 }
