@@ -8,11 +8,19 @@ Let's take a look on an example of a login page in your app.
 You can create a `LoginPageObject` which will look like [this](test_common/lib/login_page_object.dart):
 ```dart
 class LoginPageObject extends PageObject {
-  late final username = d.textFormField(_usernameFinder);
-  late final password = d.textFormField(_passwordFinder);
-  late final loginButton = d.navButton(_loginButtonFinder, HomePageObject.new);
+  late final usernameTextField = d.byKey.textFormField(const Key('username'));
+  late final passwordTextField = d.byKey.textFormField(const Key('password'));
+  late final loginButton = d.byKey
+      .navButton(const Key('login_button'), targetBuilder: HomePageObject.new);
 
-  LoginPageObject(WidgetTester t) : super(t, _finder);
+  LoginPageObject(WidgetTester t)
+      : super(t, find.byKey(const Key('login_page')));
+
+  Future<void> completeForm() async {
+    await usernameTextField.enterText('test_user');
+    await passwordTextField.enterText('password123');
+    await t.pump();
+  }
 }
 ```
 
@@ -22,12 +30,9 @@ testWidgets('form completed and tap login button --> navigates to home page', (t
   await t.pumpWidget(const App());
   final loginPage = LoginPageObject(t);
 
-  await loginPage.username.enterText('username');
-  await loginPage.password.enterText('password');
-  await t.pump();
+  await loginPage.completeForm();
   final homePage = await loginPage.loginButton.tapNavAndSettle();
 
   expect(homePage, findsOne);
-  expect(homePage.greetingText, findsOne);
 });
 ```
