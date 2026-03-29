@@ -1,3 +1,10 @@
+## 0.2.2
+
+* `WidgetListPageObject` - search for descendants items only.
+* `NavPageObject` / `NavButtonPageObject` - make targetBuilder a named param.
+* Documentation updates.
+* Example - make it more comprehensive.
+
 ## 0.2.1
 
 * Do not export `TextInputPageObject` / `TypedTextInputPageObject`.
