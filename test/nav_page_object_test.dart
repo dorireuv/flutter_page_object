@@ -70,7 +70,7 @@ void main() {
 }
 
 class _TestPageObject extends PageObject {
-  late final nav = d.nav(this, _TargetPageObject.new);
+  late final nav = d.nav(this, targetBuilder: _TargetPageObject.new);
 
   _TestPageObject(WidgetTester t) : super(t, aFinder);
 }

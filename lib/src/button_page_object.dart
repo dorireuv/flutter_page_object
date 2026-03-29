@@ -12,7 +12,7 @@ class ButtonPageObject extends PageObject {
   ButtonPageObject(WidgetTester t, Finder finder)
       : super(t, finder.firstDescendantWidgetMatching(_isButton));
 
-  /// Whether the button is enabled.
+  /// Whether the button is enabled (has an [onPressed] callback assigned).
   bool get isEnabled => _widget.onPressed != null;
 
   _ButtonWidget get _widget {
@@ -33,7 +33,7 @@ class ButtonPageObject extends PageObject {
     }
   }
 
-  /// Whether the button is disabled.
+  /// Whether the button is disabled (has no [onPressed] callback).
   bool get isDisabled => !isEnabled;
 }
 

@@ -38,7 +38,7 @@ void main() {
       final pageObject = createPageObject(t);
 
       final target = await pageObject
-          .item(_iconByIndex(1), _itemPageObjectBuilder(1))
+          .item(icon: _iconByIndex(1), targetBuilder: _itemPageObjectBuilder(1))
           .tapNavAndPump();
 
       expect(pageObject.selectedIndex, 1);

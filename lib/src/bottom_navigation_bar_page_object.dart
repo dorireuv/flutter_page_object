@@ -27,10 +27,12 @@ class BottomNavigationBarPageObject extends PageObject {
   }
 
   /// Creates a [NavPageObject] for the item with the given [icon] and
-  /// [target].
-  NavPageObject<T> item<T extends PageObject>(
-      IconData icon, PageObjectStaticBuilder<T> target) {
-    return d.byIcon.nav(icon, target);
+  /// [targetBuilder].
+  NavPageObject<T> item<T extends PageObject>({
+    required IconData icon,
+    required PageObjectStaticBuilder<T> targetBuilder,
+  }) {
+    return d.byIcon.nav(icon, targetBuilder: targetBuilder);
   }
 
   Finder get _itemFinder =>

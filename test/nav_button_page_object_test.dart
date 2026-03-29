@@ -70,7 +70,7 @@ void main() {
 }
 
 class _TestPageObject extends PageObject {
-  late final button = d.navButton(this, _TargetPageObject.new);
+  late final button = d.navButton(this, targetBuilder: _TargetPageObject.new);
 
   _TestPageObject(WidgetTester t) : super(t, aFinder);
 }

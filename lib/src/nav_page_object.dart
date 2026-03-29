@@ -7,16 +7,18 @@ import 'page_object_factory.dart';
 /// A page object representing a widget that navigates to another page object
 /// when tapped.
 class NavPageObject<T extends PageObject> extends PageObject {
-  /// Creates a [NavPageObject] with the given [finder] and [targetBuilder].
+  /// Creates a [NavPageObject] builder for the given [targetBuilder].
   static PageObjectBuilder<NavPageObject<T>> builder<T extends PageObject>(
-          PageObjectStaticBuilder<T> targetBuilder) =>
-      (t, finder) => NavPageObject(t, finder, targetBuilder);
+          {required PageObjectStaticBuilder<T> targetBuilder}) =>
+      (t, finder) => NavPageObject(t, finder, targetBuilder: targetBuilder);
 
   final PageObjectStaticBuilder<T> _targetBuilder;
   late final _target = _targetBuilder(t);
 
   /// Creates a [NavPageObject] with the given [finder] and [_targetBuilder].
-  NavPageObject(super.t, super.finder, this._targetBuilder);
+  NavPageObject(super.t, super.finder,
+      {required PageObjectStaticBuilder<T> targetBuilder})
+      : _targetBuilder = targetBuilder;
 
   /// Taps and waits for the target page object to be found.
   Future<T> tapNav({bool expectTarget = true}) async {
@@ -48,8 +50,8 @@ class NavPageObject<T extends PageObject> extends PageObject {
 
 /// Extension on [PageObjectFactory] to create [NavPageObject]s.
 extension NavPageObjectFactoryExtension<K> on PageObjectFactory<K> {
-  /// Creates a [NavButtonPageObject] with the given [key] and [targetBuilder].
-  NavPageObject<T> nav<T extends PageObject>(
-          K key, PageObjectStaticBuilder<T> targetBuilder) =>
-      create(NavPageObject.builder<T>(targetBuilder), key);
+  /// Creates a [NavPageObject] with the given [key] and [targetBuilder].
+  NavPageObject<T> nav<T extends PageObject>(K key,
+          {required PageObjectStaticBuilder<T> targetBuilder}) =>
+      create(NavPageObject.builder<T>(targetBuilder: targetBuilder), key);
 }
