@@ -9,12 +9,11 @@ import 'widget_page_object.dart';
 class DrawerPageObject extends PageObject {
   late final _openButton = r.byIcon.widget(Icons.menu);
 
-  /// A default constructor for [DrawerPageObject].
-  factory DrawerPageObject.default_(WidgetTester t) =>
-      DrawerPageObject(t, find.byType(Drawer));
-
   /// Creates a [DrawerPageObject] with the given [finder].
-  DrawerPageObject(super.t, super.finder);
+  DrawerPageObject.custom(super.t, super.finder);
+
+  /// A default constructor for [DrawerPageObject].
+  DrawerPageObject(WidgetTester t) : super(t, find.byType(Drawer));
 
   /// Returns true if the drawer is open.
   bool get isOpen => hitTestable().evaluate().isNotEmpty;
@@ -67,7 +66,7 @@ extension DrawerPageObjectFactoryExtension<K> on PageObjectFactory<K> {
   /// Creates a [DrawerPageObject] with the given [key].
   DrawerPageObject drawer([K? key]) {
     return key == null
-        ? createStatic(DrawerPageObject.default_)
-        : create(DrawerPageObject.new, key);
+        ? createStatic(DrawerPageObject.new)
+        : create(DrawerPageObject.custom, key);
   }
 }
