@@ -115,6 +115,33 @@ class _TextInputTest {
         expect(submittedValue, 'initial');
       });
     });
+
+    group('hasFocus', () {
+      testWidgets('initially --> false', (t) async {
+        await t.pumpWidget(_Widget(type: type));
+        final pageObject = createPageObject(t);
+        expect(pageObject.hasFocus, isFalse);
+      });
+
+      testWidgets('after tap --> true', (t) async {
+        await t.pumpWidget(_Widget(type: type));
+        final pageObject = createPageObject(t);
+
+        await pageObject.tapAndPump();
+
+        expect(pageObject.hasFocus, isTrue);
+      });
+
+      testWidgets('after tap and unfocus --> false', (t) async {
+        await t.pumpWidget(_Widget(type: type));
+        final pageObject = createPageObject(t);
+
+        await pageObject.tapAndPump();
+        FocusManager.instance.primaryFocus!.unfocus();
+
+        expect(pageObject.hasFocus, isTrue);
+      });
+    });
   }
 }
 

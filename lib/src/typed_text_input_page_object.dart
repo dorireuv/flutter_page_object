@@ -38,16 +38,20 @@ class TypedTextInputPageObject<T> extends PageObject
   @override
   Future<void> doAction(TextInputAction action) => inner.doAction(action);
 
-  /// Sets the value of the text field to the given value of type [T].
+  /// Returns true if the text input has focus.
+  @override
+  bool get hasFocus => inner.hasFocus;
+
+  /// Sets the value of the text input to the given value of type [T].
   Future<void> enterValue(T v) => inner.enterText(formatter(v));
 
-  /// Submits the text field, triggering onSubmitted callbacks (simulating the
+  /// Submits the text input, triggering onSubmitted callbacks (simulating the
   /// keyboard's Done/Submit action).
   Future<void> submit() => inner.submitText();
 
-  /// Submits the text field with the given value of type [T].
+  /// Submits the text input with the given value of type [T].
   Future<void> submitValue(T v) => inner.submitText(formatter(v));
 
-  /// Gets the current value of the text field as type [T].
+  /// Gets the current value of the text input as type [T].
   T get value => parser(inner.text);
 }
