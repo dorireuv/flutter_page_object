@@ -14,27 +14,24 @@ class SlidablePageObject extends PageObject with IsSlidable {
 mixin IsSlidable on PageObject {
   /// Swipes the slidable to the start.
   /// In a PageView it will always move to the next page.
-  Future<void> swipeToStart({double? dx, double? speed}) async {
+  Future<void> swipeToStart({double? dx}) async {
     assert(dx == null || dx > 0);
-    await _swipeHorizontally(toStart: true, dx: dx, speed: speed);
+    await _swipeHorizontally(toStart: true, dx: dx);
   }
 
   /// Swipes the slidable to the end.
   /// In a PageView it will always move to the previous page.
-  Future<void> swipeToEnd({double? dx, double? speed}) async {
+  Future<void> swipeToEnd({double? dx}) async {
     assert(dx == null || dx > 0);
-    await _swipeHorizontally(toStart: false, dx: dx, speed: speed);
+    await _swipeHorizontally(toStart: false, dx: dx);
   }
 
-  Future<void> _swipeHorizontally(
-      {required bool toStart, double? dx, double? speed}) async {
+  Future<void> _swipeHorizontally({required bool toStart, double? dx}) async {
     dx ??= t.getRect(this).width;
     final dxWithDirection = dx * (toStart ? -1 : 1);
 
-    speed ??= dx * 3.0;
-
-    await t.fling(this, Offset(dxWithDirection, 0), speed, warnIfMissed: false);
-    await t.pump(); // Wait for the animation to complete
+    await t.drag(this, Offset(dxWithDirection, 0), warnIfMissed: false);
+    await t.pumpAndSettle();
   }
 }
 
